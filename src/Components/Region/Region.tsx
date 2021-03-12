@@ -7,7 +7,14 @@ import piltoverzaun from "@images/regions/piltoverzaun.png";
 import shadowisles from "@images/regions/shadowisles.png";
 import shurima from "@images/regions/shurima.png";
 import targon from "@images/regions/targon.png";
-import { useMemo } from "react";
+import { getRegionScaleFromScreenSize } from "Helpers/helpers";
+import {
+   useCallback,
+   useEffect,
+   useLayoutEffect,
+   useMemo,
+   useState,
+} from "react";
 
 export interface RegionProps {
    name: string;
@@ -15,6 +22,23 @@ export interface RegionProps {
    style?: any;
 }
 export default function Region({ name, style, onClick }: RegionProps) {
+   const [scale, setScale] = useState(getRegionScaleFromScreenSize());
+
+   const updateSize = useCallback(() => {
+      const cardScale = getRegionScaleFromScreenSize();
+      setScale(cardScale);
+   }, [setScale]);
+
+   useEffect(() => {
+      updateSize();
+   }, [updateSize]);
+
+   useLayoutEffect(() => {
+      window.addEventListener("resize", updateSize);
+      updateSize();
+      return () => window.removeEventListener("resize", updateSize);
+   }, [updateSize]);
+
    const icon = useMemo(() => {
       switch (name) {
          case "Bilgewater":
@@ -43,7 +67,7 @@ export default function Region({ name, style, onClick }: RegionProps) {
          src={icon}
          alt={name}
          className="m-4"
-         style={{ flex: 0, height: 128, width: 128, ...style }}
+         style={{ flex: 0, height: 128 / scale, width: 128 / scale, ...style }}
          onClick={(s) => onClick?.({ name, style })}
       />
    );

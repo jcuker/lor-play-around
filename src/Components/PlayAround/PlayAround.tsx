@@ -46,7 +46,7 @@ export default function PlayAround() {
 
    return (
       <div className="flex flex-col">
-         <div className="flex flex-row justify-center">
+         <div className="flex flex-row justify-center flex-wrap">
             {regions.map((region) => (
                <Region key={region} name={region} />
             ))}
