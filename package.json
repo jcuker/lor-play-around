@@ -21,7 +21,7 @@
   },
   "scripts": {
     "pre-deploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "npm run pre-deploy && gh-pages -d build",
     "start": "BROWSER='firefox' craco start",
     "build": "craco build",
     "test": "craco test",
