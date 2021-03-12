@@ -1,14 +1,11 @@
 {
+  "homepage": "http://jcuker.github.io/lor-play-around",
   "name": "lor-play-around",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.1.1",
     "@tailwindcss/postcss7-compat": "^2.0.3",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -23,6 +20,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "pre-deploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "BROWSER='firefox' craco start",
     "build": "craco build",
     "test": "craco test",
@@ -47,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "gh-pages": "^3.1.0"
   }
 }
