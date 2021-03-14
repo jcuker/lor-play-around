@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/lor-play-around/static/css/main.c5fed69f.chunk.css",
-    "main.js": "/lor-play-around/static/js/main.f6f19f7c.chunk.js",
-    "main.js.map": "/lor-play-around/static/js/main.f6f19f7c.chunk.js.map",
+    "main.css": "/lor-play-around/static/css/main.031414f8.chunk.css",
+    "main.js": "/lor-play-around/static/js/main.eb6f42da.chunk.js",
+    "main.js.map": "/lor-play-around/static/js/main.eb6f42da.chunk.js.map",
     "runtime-main.js": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js",
     "runtime-main.js.map": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js.map",
     "static/js/2.85b933a2.chunk.js": "/lor-play-around/static/js/2.85b933a2.chunk.js",
     "static/js/2.85b933a2.chunk.js.map": "/lor-play-around/static/js/2.85b933a2.chunk.js.map",
     "index.html": "/lor-play-around/index.html",
-    "static/css/main.c5fed69f.chunk.css.map": "/lor-play-around/static/css/main.c5fed69f.chunk.css.map",
+    "static/css/main.031414f8.chunk.css.map": "/lor-play-around/static/css/main.031414f8.chunk.css.map",
     "static/js/2.85b933a2.chunk.js.LICENSE.txt": "/lor-play-around/static/js/2.85b933a2.chunk.js.LICENSE.txt",
     "static/media/card.cf949105.svg": "/lor-play-around/static/media/card.cf949105.svg",
     "static/media/shurima.1b8ac624.png": "/lor-play-around/static/media/shurima.1b8ac624.png",
@@ -17,7 +17,7 @@
   "entrypoints": [
     "static/js/runtime-main.dfb4b4ef.js",
     "static/js/2.85b933a2.chunk.js",
-    "static/css/main.c5fed69f.chunk.css",
-    "static/js/main.f6f19f7c.chunk.js"
+    "static/css/main.031414f8.chunk.css",
+    "static/js/main.eb6f42da.chunk.js"
   ]
 }
