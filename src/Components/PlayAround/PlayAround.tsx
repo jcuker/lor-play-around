@@ -19,7 +19,7 @@ export default function PlayAround() {
       );
 
       const cardsSplitBySpeed = matchingCards.reduce((acc, curr) => {
-         if (!curr.speed) curr.speed = "Unit";
+         if (!curr.speed) curr.speed = "Unit / Landmark";
          if (!acc[curr.speed]) acc[curr.speed] = [];
          acc[curr.speed].push(curr);
          return acc;
@@ -52,18 +52,20 @@ export default function PlayAround() {
             ))}
          </div>
          <div className="flex flex-row items-start flex-wrap">
-            {Object.keys(cards).map((keyword) => {
-               const cardsForKeyword = cards[keyword].sort((a: any, b: any) =>
-                  a.cost > b.cost ? 1 : -1
-               );
-               return (
-                  <KeywordSection
-                     key={keyword}
-                     keyword={keyword}
-                     cards={cardsForKeyword}
-                  />
-               );
-            })}
+            {Object.keys(cards)
+               .sort()
+               .map((keyword) => {
+                  const cardsForKeyword = cards[
+                     keyword
+                  ].sort((a: any, b: any) => (a.cost > b.cost ? 1 : -1));
+                  return (
+                     <KeywordSection
+                        key={keyword}
+                        keyword={keyword}
+                        cards={cardsForKeyword}
+                     />
+                  );
+               })}
          </div>
       </div>
    );

@@ -7,13 +7,16 @@ export function getCardsForRegion(region: string) {
 }
 
 export function filterCardsForRegionByList(region: string, list: string[]) {
-   return getCardsForRegion(region).filter(
+   const s = getCardsForRegion(region).filter(
       (card: any) => list.includes(card.name) || list.includes(card.code)
    );
+
+   if (s.length < list.length) console.log("Missed a card");
+   return s;
 }
 
 export function getKeywordUrl(keyword: string) {
-   return keyword === "Unit"
+   return keyword === "Unit / Landmark"
       ? card
       : process.env.REACT_APP_KEYWORDS_CDN + keyword + ".svg";
 }

@@ -9,7 +9,7 @@ interface Props {
 export default function KeywordSection({ keyword, cards }: Props) {
    return (
       <div className="flex flex-col items-start">
-         <div className="flex flex-row items-center">
+         <div className="flex flex-row items-center ml-4">
             <img
                src={getKeywordUrl(keyword)}
                alt={keyword}
@@ -18,8 +18,8 @@ export default function KeywordSection({ keyword, cards }: Props) {
             <span className="text-gray-100">{keyword}</span>
          </div>
          <div className="flex flex-row flex-wrap p-12 justify-start gap-3">
-            {cards.map((c: any) => (
-               <Card key={c.name} art={c.art} name={c.name} />
+            {cards.map((c: any, index: number) => (
+               <Card key={`${c.name}-${index}`} art={c.art} name={c.name} />
             ))}
          </div>
       </div>

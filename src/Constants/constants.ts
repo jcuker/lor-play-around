@@ -20,6 +20,8 @@ export const SHORT_CODE_TO_REGION: Record<string, string> = Object.keys(
    return ret;
 }, {});
 
+export const REGIONS = Object.keys(REGION_TO_SHORT_CODE);
+
 export const SCREEN_BREAKPOINTS = {
    xs: 0,
    sm: 600,

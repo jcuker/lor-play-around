@@ -24,11 +24,11 @@ try {
    }
    
    const transformed = allMetadata.map(c => ({
-      name: c.name,
-      region: c.region,
-      art: c.assets[0].gameAbsolutePath,
-      code: c.cardCode,
-      speed: c.spellSpeed,
+      name: c.name.trim(),
+      region: c.region.trim(),
+      art: c.assets[0].gameAbsolutePath.trim(),
+      code: c.cardCode.trim(),
+      speed: c.spellSpeed.trim(),
       cost: c.cost
    }))
 

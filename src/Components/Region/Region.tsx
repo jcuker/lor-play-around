@@ -15,13 +15,21 @@ import {
    useMemo,
    useState,
 } from "react";
+import checkImg from "@images/check.png";
+import "./region.css";
 
 export interface RegionProps {
    name: string;
    onClick?: ({ name, style, onClick }: RegionProps) => void;
+   selected?: boolean;
    style?: any;
 }
-export default function Region({ name, style, onClick }: RegionProps) {
+export default function Region({
+   name,
+   style,
+   onClick,
+   selected,
+}: RegionProps) {
    const [scale, setScale] = useState(getRegionScaleFromScreenSize());
 
    const updateSize = useCallback(() => {
@@ -63,12 +71,34 @@ export default function Region({ name, style, onClick }: RegionProps) {
    }, [name]);
 
    return (
-      <img
-         src={icon}
-         alt={name}
-         className="m-4"
-         style={{ flex: 0, height: 128 / scale, width: 128 / scale, ...style }}
-         onClick={(s) => onClick?.({ name, style })}
-      />
+      <div className="relative flex flex-col items-center">
+         <img
+            src={icon}
+            alt={name}
+            className={selected ? "img-selected" : undefined}
+            style={{
+               margin: 4,
+               flex: 0,
+               height: 128 / scale,
+               width: 128 / scale,
+               ...style,
+            }}
+            onClick={(s) => onClick?.({ name, style })}
+         />
+         <span className="text-gray-100">{name}</span>
+         {selected && (
+            <img
+               src={checkImg}
+               alt="selected"
+               style={{
+                  height: 24 / scale,
+                  width: 24 / scale,
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+               }}
+            />
+         )}
+      </div>
    );
 }
