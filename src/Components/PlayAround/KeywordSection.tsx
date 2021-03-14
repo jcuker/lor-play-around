@@ -17,7 +17,7 @@ export default function KeywordSection({ keyword, cards }: Props) {
             />
             <span className="text-gray-100">{keyword}</span>
          </div>
-         <div className="flex flex-row flex-wrap p-12 justify-start gap-3">
+         <div className="flex flex-row flex-wrap p-12 justify-center sm:justify-start gap-3">
             {cards.map((c: any, index: number) => (
                <Card key={`${c.name}-${index}`} art={c.art} name={c.name} />
             ))}
