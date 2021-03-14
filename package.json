@@ -15,6 +15,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "shx": "^0.3.3",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
@@ -23,7 +24,7 @@
     "pre-deploy": "npm run build",
     "deploy": "npm run pre-deploy && gh-pages -d build",
     "start": "BROWSER='firefox' craco start",
-    "build": "craco build",
+    "build": "shx cp ./public/index.html ./public/404.html && craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
