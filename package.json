@@ -24,7 +24,7 @@
     "pre-deploy": "npm run build",
     "deploy": "npm run pre-deploy && gh-pages -d build",
     "start": "BROWSER='firefox' craco start",
-    "build": "shx cp ./public/index.html ./public/404.html && craco build",
+    "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
