@@ -10,9 +10,10 @@ import cardback from "@images/cardback.png";
 interface Props {
    art: string;
    name: string;
+   userScale: number;
 }
 
-export default function Card({ art, name }: Props) {
+export default function Card({ art, name, userScale }: Props) {
    const [scale, setScale] = useState(getCardScaleFromScreenSize());
    const [src, setSrc] = useState(cardback);
    const imgRef = useRef<HTMLImageElement>(null);
@@ -50,7 +51,6 @@ export default function Card({ art, name }: Props) {
 
       return () => {
          didCancel = true;
-         // on component unmount, we remove the listner
          if (element.current && observer && observer.unobserve) {
             observer.unobserve(element.current as Element);
          }
@@ -77,7 +77,10 @@ export default function Card({ art, name }: Props) {
          ref={imgRef}
          src={src}
          alt={name}
-         style={{ height: 1024 / scale, width: 728 / scale }}
+         style={{
+            height: 1024 / (scale - userScale),
+            width: 728 / (scale - userScale),
+         }}
       />
    );
 }

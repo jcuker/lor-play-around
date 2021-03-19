@@ -1,22 +1,31 @@
 import { getList } from "Api/api";
 import Region from "Components/Region/Region";
 import { SHORT_CODE_TO_REGION } from "Constants/constants";
+import { Card } from "Constants/types";
 import { filterCardsForRegionByList } from "Helpers/helpers";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { useLocation } from "react-router";
+import Filters from "./Filters/Filters";
 import KeywordSection from "./KeywordSection";
+import { reducer, INITIAL_STATE } from "./reducer";
 
 export default function PlayAround() {
    const location = useLocation();
    const [regions, setRegions] = useState<string[]>([]);
-   const [expandedList, setExpandedList] = useState<Record<string, any[]>>({});
+   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
    const cards = useMemo(() => {
-      if (Object.keys(expandedList).length === 0) return {};
+      if (Object.keys(state.cardList).length === 0) return {};
 
-      const matchingCards = regions.flatMap((region) =>
-         filterCardsForRegionByList(region, expandedList[region])
+      let matchingCards = regions.flatMap((region) =>
+         filterCardsForRegionByList(region, state.cardList[region])
       );
+
+      if (state.manaFilter.length > 0) {
+         matchingCards = matchingCards.filter((card: Card) => {
+            return state.manaFilter.includes(card.cost);
+         });
+      }
 
       const cardsSplitBySpeed = matchingCards.reduce((acc, curr) => {
          if (!curr.speed) curr.speed = "Unit / Landmark";
@@ -26,12 +35,12 @@ export default function PlayAround() {
       }, {});
 
       return cardsSplitBySpeed;
-   }, [regions, expandedList]);
+   }, [state.cardList, regions, state.manaFilter]);
 
    useEffect(() => {
       async function func() {
          const list = await getList("default", true);
-         setExpandedList(list);
+         dispatch({ type: "SetCardList", payload: list });
 
          const pathSplit = location.pathname.split("/");
          const incomingRegions = pathSplit[pathSplit.length - 1]
@@ -46,6 +55,7 @@ export default function PlayAround() {
 
    return (
       <div className="flex flex-col">
+         <Filters dispatch={dispatch} manaFilter={state.manaFilter} />
          <div className="flex flex-row justify-center flex-wrap gap-3 mb-4">
             {regions.map((region) => (
                <Region key={region} name={region} />
@@ -60,6 +70,7 @@ export default function PlayAround() {
                   ].sort((a: any, b: any) => (a.cost > b.cost ? 1 : -1));
                   return (
                      <KeywordSection
+                        userScale={state.userScale}
                         key={keyword}
                         keyword={keyword}
                         cards={cardsForKeyword}

@@ -7,6 +7,14 @@ export default function Footer() {
          or opinions of Riot Games or anyone officially involved in producing or
          managing Riot Games properties. Riot Games, and all associated
          properties are trademarks or registered trademarks of Riot Games, Inc.
+         Icons made by{" "}
+         <a href="https://www.freepik.com" title="Freepik">
+            Freepik
+         </a>{" "}
+         from{" "}
+         <a href="https://www.flaticon.com/" title="Flaticon">
+            www.flaticon.com
+         </a>
       </span>
    );
 }

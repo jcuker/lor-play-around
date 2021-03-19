@@ -4,9 +4,10 @@ import Card from "./Card";
 interface Props {
    keyword: string;
    cards: any[];
+   userScale: number;
 }
 
-export default function KeywordSection({ keyword, cards }: Props) {
+export default function KeywordSection({ keyword, cards, userScale }: Props) {
    return (
       <div className="flex flex-col items-start">
          <div className="flex flex-row items-center ml-4">
@@ -19,7 +20,12 @@ export default function KeywordSection({ keyword, cards }: Props) {
          </div>
          <div className="flex flex-row flex-wrap p-12 justify-center sm:justify-start gap-3">
             {cards.map((c: any, index: number) => (
-               <Card key={`${c.name}-${index}`} art={c.art} name={c.name} />
+               <Card
+                  key={`${c.name}-${index}`}
+                  art={c.art}
+                  name={c.name}
+                  userScale={userScale}
+               />
             ))}
          </div>
       </div>

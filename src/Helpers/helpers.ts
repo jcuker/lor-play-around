@@ -7,12 +7,9 @@ export function getCardsForRegion(region: string) {
 }
 
 export function filterCardsForRegionByList(region: string, list: string[]) {
-   const s = getCardsForRegion(region).filter(
+   return getCardsForRegion(region).filter(
       (card: any) => list.includes(card.name) || list.includes(card.code)
    );
-
-   if (s.length < list.length) console.log("Missed a card");
-   return s;
 }
 
 export function getKeywordUrl(keyword: string) {
@@ -25,7 +22,7 @@ export function getCardScaleFromScreenSize(): number {
    const screenWidth = window.innerWidth;
 
    if (screenWidth <= SCREEN_BREAKPOINTS.xs) {
-      return 6;
+      return 5.9999;
    } else if (screenWidth <= SCREEN_BREAKPOINTS.sm) {
       return 5.5;
    } else if (screenWidth <= SCREEN_BREAKPOINTS.md) {
@@ -33,7 +30,7 @@ export function getCardScaleFromScreenSize(): number {
    } else if (screenWidth <= SCREEN_BREAKPOINTS.lg) {
       return 3.75;
    } else if (screenWidth <= SCREEN_BREAKPOINTS.xl) {
-      return 3;
+      return 2.9999;
    } else {
       return 0;
    }

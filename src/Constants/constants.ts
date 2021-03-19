@@ -29,3 +29,15 @@ export const SCREEN_BREAKPOINTS = {
    lg: 1280,
    xl: 1920,
 };
+
+export const MANA_VALUES: Record<string, number> = {
+   ONE: 1,
+   TWO: 2,
+   THREE: 3,
+   FOUR: 4,
+   FIVE: 5,
+   SIX: 6,
+   SEVEN_PLUS: 7,
+};
+
+export const MAXIMUM_SCALE = 7;
