@@ -6,16 +6,17 @@ import {
    useRef,
    useState,
 } from "react";
-import cardback from "@images/cardback.png";
+import cardBack from "@images/cardBack.png";
+
 interface Props {
    art: string;
    name: string;
    userScale: number;
 }
 
-export default function Card({ art, name, userScale }: Props) {
+export default function CardElement({ art, name, userScale }: Props) {
    const [scale, setScale] = useState(getCardScaleFromScreenSize());
-   const [src, setSrc] = useState(cardback);
+   const [src, setSrc] = useState(cardBack);
    const imgRef = useRef<HTMLImageElement>(null);
 
    useEffect(() => {

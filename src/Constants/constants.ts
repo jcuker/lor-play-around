@@ -7,7 +7,7 @@ export const REGION_TO_SHORT_CODE: Record<string, string> = {
    Ionia: "i",
    Noxus: "n",
    "Piltover & Zaun": "p",
-   "Shadow Isles": "s",
+   "Shadow Isles": "si",
    Shurima: "s",
    Targon: "t",
 };

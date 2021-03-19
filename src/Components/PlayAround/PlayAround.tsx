@@ -54,19 +54,19 @@ export default function PlayAround() {
       func();
    }, [location]);
 
-   useEffect(() => {
-      console.log(state.userScale);
-   }, [state.userScale]);
-
    return (
       <div className="flex flex-col">
          <Filters dispatch={dispatch} manaFilter={state.manaFilter} />
-         <div className="flex flex-row justify-center flex-wrap gap-3 mb-4">
+         <div
+            className={`flex flex-row justify-center flex-wrap gap-3 mb-4 p-16 ${
+               !state.showRegions ? "hidden" : ""
+            }`}
+         >
             {regions.map((region) => (
                <Region key={region} name={region} />
             ))}
          </div>
-         <div className="flex flex-row items-start flex-wrap">
+         <div className="flex flex-row items-start flex-wrap mt-4">
             {Object.keys(cards)
                .sort()
                .map((keyword) => {
