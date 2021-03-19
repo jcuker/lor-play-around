@@ -6,16 +6,15 @@ export const REGION_TO_SHORT_CODE: Record<string, string> = {
    Freljord: "f",
    Ionia: "i",
    Noxus: "n",
-   "Piltover & Zaun": "pnz",
-   "Shadow Isles": "sh",
+   "Piltover & Zaun": "p",
+   "Shadow Isles": "s",
    Shurima: "s",
    Targon: "t",
 };
 
 export const SHORT_CODE_TO_REGION: Record<string, string> = Object.keys(
    REGION_TO_SHORT_CODE
-).reduce((ret, key) => {
-   //@ts-ignore
+).reduce((ret: Record<string, string>, key) => {
    ret[REGION_TO_SHORT_CODE[key]] = key;
    return ret;
 }, {});
@@ -40,4 +39,4 @@ export const MANA_VALUES: Record<string, number> = {
    SEVEN_PLUS: 7,
 };
 
-export const MAXIMUM_SCALE = 7;
+export const MAXIMUM_SCALE = 2.5;

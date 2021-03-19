@@ -45,13 +45,18 @@ export default function PlayAround() {
          const pathSplit = location.pathname.split("/");
          const incomingRegions = pathSplit[pathSplit.length - 1]
             .split(",")
-            .map((r) => SHORT_CODE_TO_REGION[r]);
+            .map((r) => SHORT_CODE_TO_REGION[r] || "")
+            .filter((r) => !!r);
 
          setRegions(incomingRegions);
       }
 
       func();
    }, [location]);
+
+   useEffect(() => {
+      console.log(state.userScale);
+   }, [state.userScale]);
 
    return (
       <div className="flex flex-col">

@@ -30,7 +30,6 @@ export function reducer(
    state: PlayAroundState,
    action: PlayAroundAction
 ): PlayAroundState {
-   console.log(action);
    switch (action.type) {
       case "SetCardList":
          return { ...state, cardList: { ...action.payload } };
@@ -44,12 +43,12 @@ export function reducer(
             userScale:
                state.userScale >= MAXIMUM_SCALE
                   ? MAXIMUM_SCALE
-                  : state.userScale + 1,
+                  : state.userScale + 0.25,
          };
       case "DecreaseUserScale":
          return {
             ...state,
-            userScale: state.userScale <= 0 ? 0 : state.userScale - 1,
+            userScale: state.userScale <= 0 ? 0 : state.userScale - 0.25,
          };
       default:
          return state;
