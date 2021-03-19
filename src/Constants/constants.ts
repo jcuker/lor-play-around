@@ -30,13 +30,13 @@ export const SCREEN_BREAKPOINTS = {
 };
 
 export const MANA_VALUES: Record<string, number> = {
-   ONE: 1,
-   TWO: 2,
-   THREE: 3,
-   FOUR: 4,
-   FIVE: 5,
-   SIX: 6,
-   SEVEN_PLUS: 7,
+   "1": 1,
+   "2": 2,
+   "3": 3,
+   "4": 4,
+   "5": 5,
+   "6": 6,
+   "7+": 7,
 };
 
 export const MAXIMUM_SCALE = 2.5;

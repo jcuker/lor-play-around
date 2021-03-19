@@ -3,7 +3,7 @@ import zoomOut from "@images/zoomOut.svg";
 import zoomIn from "@images/zoomIn.svg";
 import { MANA_VALUES } from "Constants/constants";
 import FilterSection from "./FilterSection";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
@@ -11,15 +11,18 @@ interface Props {
 }
 
 export default function FilterContent({ dispatch, manaFilter }: Props) {
-   function onManaClick(val: number) {
-      const newFilter = [...manaFilter];
+   const onManaClick = useCallback(
+      (val: number) => {
+         const newFilter = [...manaFilter];
 
-      manaFilter.includes(val)
-         ? newFilter.splice(newFilter.indexOf(val), 1)
-         : newFilter.push(val);
+         manaFilter.includes(val)
+            ? newFilter.splice(newFilter.indexOf(val), 1)
+            : newFilter.push(val);
 
-      dispatch({ type: "SetManaFilter", payload: newFilter });
-   }
+         dispatch({ type: "SetManaFilter", payload: newFilter });
+      },
+      [dispatch, manaFilter]
+   );
 
    const cardSizeContent = useMemo(() => {
       return (
@@ -43,7 +46,7 @@ export default function FilterContent({ dispatch, manaFilter }: Props) {
    const manaFilterContent = useMemo(() => {
       return (
          <div
-            className="flex flex-row justify-start flex-wrap gap-3"
+            className="flex flex-row justify-between flex-wrap gap-3"
             style={{ flex: 1 }}
          >
             {Object.keys(MANA_VALUES).map((key: string) => (
@@ -57,10 +60,10 @@ export default function FilterContent({ dispatch, manaFilter }: Props) {
                      borderRadius: "50%",
                      height: "4vw",
                      minHeight: 27,
-                     maxHeight: 48,
+                     maxHeight: 64,
                      width: "4vw",
                      minWidth: 27,
-                     maxWidth: 48,
+                     maxWidth: 64,
                      border: "1px solid rgb(189, 158, 89)",
                      boxShadow:
                         "rgba(20, 11, 36, 0.8) 0px 0px 6px 0px, black 0px 0px 0px 2px inset",
@@ -69,7 +72,7 @@ export default function FilterContent({ dispatch, manaFilter }: Props) {
                      onManaClick(MANA_VALUES[key]);
                   }}
                >
-                  {MANA_VALUES[key]}
+                  {key}
                </div>
             ))}
          </div>

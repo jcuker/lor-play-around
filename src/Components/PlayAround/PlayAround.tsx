@@ -23,7 +23,10 @@ export default function PlayAround() {
 
       if (state.manaFilter.length > 0) {
          matchingCards = matchingCards.filter((card: Card) => {
-            return state.manaFilter.includes(card.cost);
+            return (
+               state.manaFilter.includes(card.cost) ||
+               (state.manaFilter.includes(7) && card.cost >= 7)
+            );
          });
       }
 

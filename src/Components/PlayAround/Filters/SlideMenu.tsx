@@ -7,6 +7,8 @@ interface Props {
 
 export default function SlideMenu({ content }: Props) {
    const [expanded, setExpanded] = useState(false);
+   const menuWidth = 35;
+   const animationTime = 333;
 
    const toggle = (
       <img
@@ -14,8 +16,6 @@ export default function SlideMenu({ content }: Props) {
          src={hMenu}
          style={{
             filter: "invert(100%)",
-            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-            transition: "transform 225ms ease",
          }}
       />
    );
@@ -23,7 +23,7 @@ export default function SlideMenu({ content }: Props) {
    return (
       <>
          <button
-            className="absolute top-3 right-3"
+            className="fixed top-3 right-3"
             style={{
                maxHeight: "4rem",
                maxWidth: "4rem",
@@ -31,6 +31,11 @@ export default function SlideMenu({ content }: Props) {
                width: "5.5vw",
                minHeight: "2rem",
                minWidth: "2rem",
+               right: `${menuWidth + 2}vw`,
+               transform: !expanded
+                  ? `translateX(${menuWidth + 1}vw)`
+                  : "translateX(25%)",
+               transition: `transform ${animationTime}ms cubic-bezier(.19,1,.12,1.06)`,
             }}
             onClick={() => setExpanded(!expanded)}
          >
@@ -38,10 +43,12 @@ export default function SlideMenu({ content }: Props) {
          </button>
 
          <div
-            className="z-50 navbar w-64 absolute bg-gray-700 top-0 h-screen flex flex-col flex-wrap"
+            className="z-50 w-64 fixed bg-gray-700 top-0 right-0 h-screen flex flex-col flex-wrap"
             style={{
-               transform: expanded ? "translateX(0%)" : "translateX(-100%)",
-               transition: "transform 175ms ease",
+               transform: expanded ? "translateX(0%)" : "translateX(100%)",
+               transition: `transform ${animationTime}ms ease`,
+               maxWidth: `${menuWidth}vw`,
+               width: `${menuWidth}vw`,
             }}
          >
             {content}
