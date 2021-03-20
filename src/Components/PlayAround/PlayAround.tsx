@@ -9,6 +9,11 @@ import Filters from "./Filters/Filters";
 import KeywordSection from "./KeywordSection";
 import { reducer, INITIAL_STATE } from "./reducer";
 
+export interface URLParams {
+   list?: string;
+   code?: string;
+}
+
 export default function PlayAround() {
    const location = useLocation();
    const [regions, setRegions] = useState<string[]>([]);
@@ -42,6 +47,7 @@ export default function PlayAround() {
 
    useEffect(() => {
       async function func() {
+         console.log(location);
          const list = await getList("default", true);
          dispatch({ type: "SetCardList", payload: list });
 

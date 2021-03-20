@@ -21,6 +21,30 @@ export const SHORT_CODE_TO_REGION: Record<string, string> = Object.keys(
 
 export const REGIONS = Object.keys(REGION_TO_SHORT_CODE);
 
+export const REGION_TO_DECKCODE_ID = {
+   DE: 0,
+   FR: 1,
+   IO: 2,
+   NX: 3,
+   PZ: 4,
+   SI: 5,
+   BW: 6,
+   MT: 9,
+   SH: 7,
+};
+
+export const DECKCODE_REGION_TO_SHORT_CODE: Record<string, string> = {
+   DE: "d",
+   FR: "f",
+   IO: "i",
+   NX: "n",
+   PZ: "p",
+   SI: "si",
+   BW: "b",
+   MT: "t",
+   SH: "s",
+};
+
 export const SCREEN_BREAKPOINTS = {
    xs: 0,
    sm: 600,

@@ -6,6 +6,7 @@ import FilterSection from "./FilterSection";
 import { useCallback, useMemo } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import DeckImporter from "./DeckImporter";
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
    manaFilter: number[];
@@ -102,6 +103,10 @@ export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
       <div className="flex flex-col gap-3 m-2">
          <FilterSection content={cardSizeContent} heading="Card Size" />
          <FilterSection content={manaFilterContent} heading="Mana Cost" />
+         {/* <FilterSection
+            content={<DeckImporter dispatch={dispatch} />}
+            heading="Import Decklist From Code"
+         /> */}
       </div>
    );
 }

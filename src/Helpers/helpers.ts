@@ -1,6 +1,10 @@
 import metadata from "../Constants/metadata.json";
 import card from "@images/card.svg";
-import { SCREEN_BREAKPOINTS } from "Constants/constants";
+import {
+   DECKCODE_REGION_TO_SHORT_CODE,
+   REGION_TO_DECKCODE_ID,
+   SCREEN_BREAKPOINTS,
+} from "Constants/constants";
 
 export function getCardsForRegion(region: string) {
    return (metadata as Record<string, any>)[region];
@@ -52,6 +56,16 @@ export function getRegionScaleFromScreenSize(): number {
    } else {
       return 0;
    }
+}
+
+export function isSmallScreen(): boolean {
+   const screenWidth = window.innerWidth;
+   return screenWidth < SCREEN_BREAKPOINTS.md;
+}
+
+export function getRegionFromCardCode(code: string) {
+   const regionStr = code.substring(2, 4);
+   return DECKCODE_REGION_TO_SHORT_CODE[regionStr];
 }
 
 export function isOnMobile(): boolean {

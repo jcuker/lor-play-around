@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import hMenu from "@images/hMenu.svg";
-import { isOnMobile } from "Helpers/helpers";
+import { isOnMobile, isSmallScreen } from "Helpers/helpers";
 
 interface Props {
    content: JSX.Element;
@@ -22,7 +22,7 @@ export default function SlideMenu({ content }: Props) {
    );
 
    const calcMenuWidth = useCallback(
-      () => setMenuWidth(isOnMobile() ? 60 : 35),
+      () => setMenuWidth(isOnMobile() || isSmallScreen() ? 60 : 35),
       [setMenuWidth]
    );
 
