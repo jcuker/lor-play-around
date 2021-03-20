@@ -1,24 +1,30 @@
 {
   "files": {
-    "main.css": "/lor-play-around/static/css/main.1283d876.chunk.css",
-    "main.js": "/lor-play-around/static/js/main.9effc8d9.chunk.js",
-    "main.js.map": "/lor-play-around/static/js/main.9effc8d9.chunk.js.map",
+    "main.css": "/lor-play-around/static/css/main.68d28b65.chunk.css",
+    "main.js": "/lor-play-around/static/js/main.c63f4dda.chunk.js",
+    "main.js.map": "/lor-play-around/static/js/main.c63f4dda.chunk.js.map",
     "runtime-main.js": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js",
     "runtime-main.js.map": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js.map",
-    "static/js/2.85b933a2.chunk.js": "/lor-play-around/static/js/2.85b933a2.chunk.js",
-    "static/js/2.85b933a2.chunk.js.map": "/lor-play-around/static/js/2.85b933a2.chunk.js.map",
+    "static/css/2.ba480ba8.chunk.css": "/lor-play-around/static/css/2.ba480ba8.chunk.css",
+    "static/js/2.402aa5d0.chunk.js": "/lor-play-around/static/js/2.402aa5d0.chunk.js",
+    "static/js/2.402aa5d0.chunk.js.map": "/lor-play-around/static/js/2.402aa5d0.chunk.js.map",
     "index.html": "/lor-play-around/index.html",
-    "static/css/main.1283d876.chunk.css.map": "/lor-play-around/static/css/main.1283d876.chunk.css.map",
-    "static/js/2.85b933a2.chunk.js.LICENSE.txt": "/lor-play-around/static/js/2.85b933a2.chunk.js.LICENSE.txt",
+    "static/css/2.ba480ba8.chunk.css.map": "/lor-play-around/static/css/2.ba480ba8.chunk.css.map",
+    "static/css/main.68d28b65.chunk.css.map": "/lor-play-around/static/css/main.68d28b65.chunk.css.map",
+    "static/js/2.402aa5d0.chunk.js.LICENSE.txt": "/lor-play-around/static/js/2.402aa5d0.chunk.js.LICENSE.txt",
     "static/media/card.cf949105.svg": "/lor-play-around/static/media/card.cf949105.svg",
-    "static/media/cardback.4d987ef5.png": "/lor-play-around/static/media/cardback.4d987ef5.png",
+    "static/media/cardBack.4d987ef5.png": "/lor-play-around/static/media/cardBack.4d987ef5.png",
+    "static/media/hMenu.7854e359.svg": "/lor-play-around/static/media/hMenu.7854e359.svg",
     "static/media/shurima.1b8ac624.png": "/lor-play-around/static/media/shurima.1b8ac624.png",
-    "static/media/targon.c5241d9e.png": "/lor-play-around/static/media/targon.c5241d9e.png"
+    "static/media/targon.c5241d9e.png": "/lor-play-around/static/media/targon.c5241d9e.png",
+    "static/media/zoomIn.5d98747a.svg": "/lor-play-around/static/media/zoomIn.5d98747a.svg",
+    "static/media/zoomOut.b71ddc30.svg": "/lor-play-around/static/media/zoomOut.b71ddc30.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.dfb4b4ef.js",
-    "static/js/2.85b933a2.chunk.js",
-    "static/css/main.1283d876.chunk.css",
-    "static/js/main.9effc8d9.chunk.js"
+    "static/css/2.ba480ba8.chunk.css",
+    "static/js/2.402aa5d0.chunk.js",
+    "static/css/main.68d28b65.chunk.css",
+    "static/js/main.c63f4dda.chunk.js"
   ]
 }
