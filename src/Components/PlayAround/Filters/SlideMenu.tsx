@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import hMenu from "@images/hMenu.svg";
+import { isOnMobile } from "Helpers/helpers";
 
 interface Props {
    content: JSX.Element;
@@ -20,6 +21,27 @@ export default function SlideMenu({ content }: Props) {
       />
    );
 
+   const toggleExpanded = useCallback(
+      (to?: boolean) => {
+         function eventListener(event: KeyboardEvent) {
+            return event.code === "Escape" ? toggleExpanded(false) : undefined;
+         }
+         const isExpanded = to !== undefined ? to : !expanded;
+
+         isExpanded
+            ? document.addEventListener("keydown", eventListener)
+            : document.removeEventListener("keydown", eventListener);
+
+         setExpanded(isExpanded);
+      },
+      [expanded]
+   );
+
+   useEffect(() => {
+      toggleExpanded(!isOnMobile());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
+
    return (
       <>
          <button
@@ -30,14 +52,16 @@ export default function SlideMenu({ content }: Props) {
                height: "5.5vw",
                width: "5.5vw",
                minHeight: "2rem",
+               zIndex: 999,
                minWidth: "2rem",
                right: `${menuWidth + 2}vw`,
                transform: !expanded
                   ? `translateX(${menuWidth + 1}vw)`
                   : "translateX(25%)",
-               transition: `transform ${animationTime}ms cubic-bezier(.19,1,.12,1.06)`,
+               transition: `transform ${animationTime}ms ease`,
+               willChange: "transform",
             }}
-            onClick={() => setExpanded(!expanded)}
+            onClick={() => toggleExpanded()}
          >
             {toggle}
          </button>
@@ -49,10 +73,22 @@ export default function SlideMenu({ content }: Props) {
                transition: `transform ${animationTime}ms ease`,
                maxWidth: `${menuWidth}vw`,
                width: `${menuWidth}vw`,
+               willChange: "transform",
             }}
          >
             {content}
          </div>
+         <div
+            className={`top-0 left-0 absolute h-screen ${
+               !expanded ? "hidden" : ""
+            } opacity-50`}
+            style={{
+               maxWidth: "100%",
+               backgroundColor: "black",
+               width: "100vw",
+            }}
+            onClick={() => toggleExpanded(false)}
+         ></div>
       </>
    );
 }
