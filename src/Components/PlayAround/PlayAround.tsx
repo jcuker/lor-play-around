@@ -59,7 +59,11 @@ export default function PlayAround() {
 
    return (
       <div className="flex flex-col">
-         <Filters dispatch={dispatch} manaFilter={state.manaFilter} />
+         <Filters
+            dispatch={dispatch}
+            manaFilter={state.manaFilter}
+            scale={state.userScale}
+         />
          <div
             className={`flex flex-row justify-center flex-wrap gap-3 mb-4 p-16 ${
                !state.showRegions ? "hidden" : ""

@@ -1,4 +1,4 @@
-import { MAXIMUM_SCALE } from "Constants/constants";
+import { MAXIMUM_SCALE, SCALE_STEP } from "Constants/constants";
 import { isOnMobile } from "Helpers/helpers";
 
 export interface PlayAroundState {
@@ -12,6 +12,7 @@ export interface PlayAroundState {
 export type PlayAroundType =
    | "IncreaseUserScale"
    | "DecreaseUserScale"
+   | "SetUserScale"
    | "SetManaFilter"
    | "SetInCombat"
    | "SetCardList"
@@ -47,13 +48,15 @@ export function reducer(
             userScale:
                state.userScale >= MAXIMUM_SCALE
                   ? MAXIMUM_SCALE
-                  : state.userScale + 0.25,
+                  : state.userScale + SCALE_STEP,
          };
       case "DecreaseUserScale":
          return {
             ...state,
-            userScale: state.userScale <= 0 ? 0 : state.userScale - 0.25,
+            userScale: state.userScale <= 0 ? 0 : state.userScale - SCALE_STEP,
          };
+      case "SetUserScale":
+         return { ...state, userScale: action.payload };
       case "ToggleRegions":
          return { ...state, showRegions: !state.showRegions };
       default:

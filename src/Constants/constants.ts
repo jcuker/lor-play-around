@@ -39,4 +39,5 @@ export const MANA_VALUES: Record<string, number> = {
    "7+": 7,
 };
 
-export const MAXIMUM_SCALE = 2.5;
+export const MAXIMUM_SCALE = 3;
+export const SCALE_STEP = 0.25;

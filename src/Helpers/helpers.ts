@@ -22,15 +22,15 @@ export function getCardScaleFromScreenSize(): number {
    const screenWidth = window.innerWidth;
 
    if (screenWidth <= SCREEN_BREAKPOINTS.xs) {
-      return 5.9999;
+      return 7.5;
    } else if (screenWidth <= SCREEN_BREAKPOINTS.sm) {
-      return 5.5;
+      return 6.75;
    } else if (screenWidth <= SCREEN_BREAKPOINTS.md) {
-      return 4.25;
+      return 6;
    } else if (screenWidth <= SCREEN_BREAKPOINTS.lg) {
-      return 3.75;
+      return 5.25;
    } else if (screenWidth <= SCREEN_BREAKPOINTS.xl) {
-      return 2.9999;
+      return 4.75;
    } else {
       return 0;
    }

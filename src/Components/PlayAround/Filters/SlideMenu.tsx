@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import hMenu from "@images/hMenu.svg";
 import { isOnMobile } from "Helpers/helpers";
 
@@ -8,7 +8,7 @@ interface Props {
 
 export default function SlideMenu({ content }: Props) {
    const [expanded, setExpanded] = useState(false);
-   const menuWidth = 35;
+   const [menuWidth, setMenuWidth] = useState(0);
    const animationTime = 333;
 
    const toggle = (
@@ -20,6 +20,21 @@ export default function SlideMenu({ content }: Props) {
          }}
       />
    );
+
+   const calcMenuWidth = useCallback(
+      () => setMenuWidth(isOnMobile() ? 60 : 35),
+      [setMenuWidth]
+   );
+
+   useEffect(() => {
+      calcMenuWidth();
+   }, [calcMenuWidth]);
+
+   useLayoutEffect(() => {
+      window.addEventListener("resize", calcMenuWidth);
+      calcMenuWidth();
+      return () => window.removeEventListener("resize", calcMenuWidth);
+   }, [calcMenuWidth]);
 
    const toggleExpanded = useCallback(
       (to?: boolean) => {
@@ -37,10 +52,10 @@ export default function SlideMenu({ content }: Props) {
       [expanded]
    );
 
-   useEffect(() => {
-      toggleExpanded(!isOnMobile());
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+   // useEffect(() => {
+   //    toggleExpanded(!isOnMobile());
+   //    // eslint-disable-next-line react-hooks/exhaustive-deps
+   // }, []);
 
    return (
       <>
@@ -54,7 +69,7 @@ export default function SlideMenu({ content }: Props) {
                minHeight: "2rem",
                zIndex: 999,
                minWidth: "2rem",
-               right: `${menuWidth + 2}vw`,
+               right: `${menuWidth + 2.5}vw`,
                transform: !expanded
                   ? `translateX(${menuWidth + 1}vw)`
                   : "translateX(25%)",

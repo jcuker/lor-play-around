@@ -1,16 +1,18 @@
 import { PlayAroundAction } from "../reducer";
 import zoomOut from "@images/zoomOut.svg";
 import zoomIn from "@images/zoomIn.svg";
-import { MANA_VALUES } from "Constants/constants";
+import { MANA_VALUES, MAXIMUM_SCALE, SCALE_STEP } from "Constants/constants";
 import FilterSection from "./FilterSection";
 import { useCallback, useMemo } from "react";
-
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
    manaFilter: number[];
+   scale: number;
 }
 
-export default function FilterContent({ dispatch, manaFilter }: Props) {
+export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
    const onManaClick = useCallback(
       (val: number) => {
          const newFilter = [...manaFilter];
@@ -28,25 +30,41 @@ export default function FilterContent({ dispatch, manaFilter }: Props) {
       return (
          <>
             <img
-               style={{ height: 48, width: 48 }}
+               style={{ height: "2rem", width: "2rem", filter: "invert(100%)" }}
                src={zoomOut}
                onClick={() => dispatch({ type: "DecreaseUserScale" })}
                alt="magnifying glass with minus inscribed"
             />
+            <Slider
+               style={{
+                  flex: 1,
+                  alignSelf: "center",
+                  marginLeft: "1rem",
+                  marginRight: "1rem",
+               }}
+               min={0}
+               max={MAXIMUM_SCALE}
+               step={SCALE_STEP}
+               defaultValue={scale}
+               value={scale}
+               onChange={(value) =>
+                  dispatch({ type: "SetUserScale", payload: value })
+               }
+            />
             <img
-               style={{ height: 48, width: 48 }}
+               style={{ height: "2rem", width: "2rem", filter: "invert(100%)" }}
                src={zoomIn}
                onClick={() => dispatch({ type: "IncreaseUserScale" })}
                alt="magnifying glass with plus inscribed"
             />
          </>
       );
-   }, [dispatch]);
+   }, [dispatch, scale]);
 
    const manaFilterContent = useMemo(() => {
       return (
          <div
-            className="flex flex-row justify-between flex-wrap gap-3"
+            className={`flex flex-row justify-start md:justify-between flex-wrap gap-3`}
             style={{ flex: 1 }}
          >
             {Object.keys(MANA_VALUES).map((key: string) => (
@@ -71,6 +89,7 @@ export default function FilterContent({ dispatch, manaFilter }: Props) {
                   onClick={() => {
                      onManaClick(MANA_VALUES[key]);
                   }}
+                  key={key}
                >
                   {key}
                </div>
