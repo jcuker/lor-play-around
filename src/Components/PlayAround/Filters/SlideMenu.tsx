@@ -94,7 +94,7 @@ export default function SlideMenu({ content }: Props) {
             {content}
          </div>
          <div
-            className={`top-0 left-0 absolute h-screen ${
+            className={`top-0 left-0 fixed h-screen ${
                !expanded ? "hidden" : ""
             } opacity-50`}
             style={{
