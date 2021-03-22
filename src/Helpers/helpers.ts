@@ -2,7 +2,6 @@ import metadata from "../Constants/metadata.json";
 import card from "@images/card.svg";
 import {
    DECKCODE_REGION_TO_SHORT_CODE,
-   REGION_TO_DECKCODE_ID,
    SCREEN_BREAKPOINTS,
    SHORT_CODE_TO_REGION,
 } from "Constants/constants";

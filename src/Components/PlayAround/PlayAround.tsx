@@ -4,7 +4,6 @@ import { SHORT_CODE_TO_REGION } from "Constants/constants";
 import { Card, DecodedCard } from "Constants/types";
 import {
    decodeDeck,
-   decodeDeckCodeToCardList,
    filterCardsForRegionByList,
    getRegionFromCardCode,
 } from "Helpers/helpers";

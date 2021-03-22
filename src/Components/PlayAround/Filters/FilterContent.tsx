@@ -93,14 +93,14 @@ export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
       );
    }, [manaFilter, onManaClick]);
 
-   const tipsContent = useMemo(() => {
-      return (
-         <span className="text-gray-100">
-            Use 1-7 to quickly adjust the mana filter. You can also use '-' or
-            '+/=' to adjust the zoom level.
-         </span>
-      );
-   }, []);
+   // const tipsContent = useMemo(() => {
+   //    return (
+   //       <span className="text-gray-100">
+   //          Use 1-7 to quickly adjust the mana filter. You can also use '-' or
+   //          '+/=' to adjust the zoom level.
+   //       </span>
+   //    );
+   // }, []);
 
    return (
       <div className="flex flex-col gap-3 m-2">
