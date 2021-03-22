@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/lor-play-around/static/css/main.368b017b.chunk.css",
-    "main.js": "/lor-play-around/static/js/main.4291e294.chunk.js",
-    "main.js.map": "/lor-play-around/static/js/main.4291e294.chunk.js.map",
+    "main.css": "/lor-play-around/static/css/main.728981ae.chunk.css",
+    "main.js": "/lor-play-around/static/js/main.e549fedc.chunk.js",
+    "main.js.map": "/lor-play-around/static/js/main.e549fedc.chunk.js.map",
     "runtime-main.js": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js",
     "runtime-main.js.map": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js.map",
     "static/css/2.ba480ba8.chunk.css": "/lor-play-around/static/css/2.ba480ba8.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.ec0028f7.chunk.js.map": "/lor-play-around/static/js/2.ec0028f7.chunk.js.map",
     "index.html": "/lor-play-around/index.html",
     "static/css/2.ba480ba8.chunk.css.map": "/lor-play-around/static/css/2.ba480ba8.chunk.css.map",
-    "static/css/main.368b017b.chunk.css.map": "/lor-play-around/static/css/main.368b017b.chunk.css.map",
+    "static/css/main.728981ae.chunk.css.map": "/lor-play-around/static/css/main.728981ae.chunk.css.map",
     "static/js/2.ec0028f7.chunk.js.LICENSE.txt": "/lor-play-around/static/js/2.ec0028f7.chunk.js.LICENSE.txt",
     "static/media/card.cf949105.svg": "/lor-play-around/static/media/card.cf949105.svg",
     "static/media/cardBack.4d987ef5.png": "/lor-play-around/static/media/cardBack.4d987ef5.png",
@@ -24,7 +24,7 @@
     "static/js/runtime-main.dfb4b4ef.js",
     "static/css/2.ba480ba8.chunk.css",
     "static/js/2.ec0028f7.chunk.js",
-    "static/css/main.368b017b.chunk.css",
-    "static/js/main.4291e294.chunk.js"
+    "static/css/main.728981ae.chunk.css",
+    "static/js/main.e549fedc.chunk.js"
   ]
 }
