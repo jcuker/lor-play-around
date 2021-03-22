@@ -6,19 +6,20 @@ import {
    SHORT_CODE_TO_REGION,
 } from "Constants/constants";
 import { Card as RuneterraDecoderCard, DeckEncoder } from "runeterra";
-import { Card, DecodedCard } from "Constants/types";
+import { Card, DecodedCard, DisplayCard } from "Constants/types";
 
 export function getCardsForRegion(region: string) {
-   return (metadata as Record<string, any>)[region];
+   return (metadata as Record<string, DisplayCard[]>)[region];
 }
 
 export function filterCardsForRegionByList(
    region: string,
    list: string[],
    decodedCards?: DecodedCard[]
-) {
+): DisplayCard[] {
    let cards = getCardsForRegion(region).filter(
-      (card: Card) => list.includes(card.name) || list.includes(card.code)
+      (card: DisplayCard) =>
+         list.includes(card.name) || list.includes(card.code)
    );
 
    if (decodedCards) {
@@ -134,4 +135,23 @@ export function decodeDeckCodeToCardList({
    );
 
    return decodedToList;
+}
+
+function convertDecodedCardToDisplayCard(card: DecodedCard): DisplayCard {
+   const region = getRegionFromCardCode(card.code, false);
+   const found = getCardsForRegion(region).find(
+      (val: Card) => card.code === val.code
+   );
+
+   return { ...found, count: card.count } as DisplayCard;
+}
+
+export function convertDecodedCardsToDisplayCards(
+   decodedCards: DecodedCard[] = []
+) {
+   const uniq = new Set<DisplayCard>();
+   decodedCards
+      .map(convertDecodedCardToDisplayCard)
+      .forEach((c) => uniq.add(c));
+   return Array.from(uniq);
 }

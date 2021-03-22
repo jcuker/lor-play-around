@@ -1,8 +1,9 @@
 import { getList } from "Api/api";
 import Region from "Components/Region/Region";
 import { SHORT_CODE_TO_REGION } from "Constants/constants";
-import { Card, DecodedCard } from "Constants/types";
+import { Card, DecodedCard, DisplayCard } from "Constants/types";
 import {
+   convertDecodedCardsToDisplayCards,
    decodeDeck,
    filterCardsForRegionByList,
    getRegionFromCardCode,
@@ -78,13 +79,15 @@ export default function PlayAround() {
    const cards = useMemo(() => {
       if (Object.keys(state.cardList).length === 0) return {};
 
-      let matchingCards = regions.flatMap((region) =>
-         filterCardsForRegionByList(
-            region,
-            state.cardList[region],
-            decodedCards
-         )
-      );
+      let matchingCards: DisplayCard[] = state.showFullDeck
+         ? convertDecodedCardsToDisplayCards(decodedCards)
+         : regions.flatMap((region) => {
+              return filterCardsForRegionByList(
+                 region,
+                 state.cardList[region],
+                 decodedCards
+              );
+           });
 
       if (state.manaFilter !== 7) {
          matchingCards = matchingCards.filter((card: Card) => {
@@ -92,18 +95,27 @@ export default function PlayAround() {
          });
       }
 
-      const cardsSplitBySpeed = matchingCards.reduce((acc, curr) => {
-         if (!curr.speed) curr.speed = "Unit / Landmark";
-         if (!acc[curr.speed]) acc[curr.speed] = [];
-         acc[curr.speed].push(curr);
-         return acc;
-      }, {});
+      const cardsSplitBySpeed = matchingCards.reduce(
+         (acc: Record<string, DisplayCard[]>, curr: DisplayCard) => {
+            if (!curr.speed) curr.speed = "Unit / Landmark";
+            if (!acc[curr.speed]) acc[curr.speed] = [];
+            acc[curr.speed].push(curr);
+            return acc;
+         },
+         {}
+      );
 
       return cardsSplitBySpeed;
-   }, [state.cardList, state.manaFilter, regions, decodedCards]);
+   }, [
+      state.cardList,
+      state.manaFilter,
+      state.showFullDeck,
+      regions,
+      decodedCards,
+   ]);
 
    useEffect(() => {
-      function listenForNumPressed(ev: KeyboardEvent) {
+      function keyListener(ev: KeyboardEvent) {
          let filter = 0;
 
          switch (ev.code) {
@@ -139,13 +151,15 @@ export default function PlayAround() {
             dispatch({ type: "IncreaseUserScale" });
          } else if (ev.code === "Minus") {
             dispatch({ type: "DecreaseUserScale" });
+         } else if (decodedCards && ev.code === "KeyF") {
+            dispatch({ type: "ToggleShowFullDeck" });
          }
       }
 
-      document.addEventListener("keydown", listenForNumPressed);
+      document.addEventListener("keydown", keyListener);
 
       return () => {
-         document.removeEventListener("keydown", listenForNumPressed);
+         document.removeEventListener("keydown", keyListener);
       };
    }, [dispatch]);
 
@@ -155,6 +169,7 @@ export default function PlayAround() {
             dispatch={dispatch}
             manaFilter={state.manaFilter}
             scale={state.userScale}
+            showFullDeck={state.showFullDeck}
          />
          <div
             className={`flex flex-row justify-center flex-wrap gap-3 mb-4 p-16 ${

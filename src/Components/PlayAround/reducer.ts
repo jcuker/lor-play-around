@@ -7,6 +7,7 @@ export interface PlayAroundState {
    inCombat: boolean;
    cardList: Record<string, string[]>;
    showRegions: boolean;
+   showFullDeck: boolean;
 }
 
 export type PlayAroundType =
@@ -16,7 +17,8 @@ export type PlayAroundType =
    | "SetManaFilter"
    | "SetInCombat"
    | "SetCardList"
-   | "ToggleRegions";
+   | "ToggleRegions"
+   | "ToggleShowFullDeck";
 
 export interface PlayAroundAction {
    type: PlayAroundType;
@@ -29,6 +31,7 @@ export const INITIAL_STATE: PlayAroundState = {
    manaFilter: 7,
    cardList: {},
    showRegions: !isOnMobile(),
+   showFullDeck: false,
 };
 
 export function reducer(
@@ -59,6 +62,8 @@ export function reducer(
          return { ...state, userScale: action.payload };
       case "ToggleRegions":
          return { ...state, showRegions: !state.showRegions };
+      case "ToggleShowFullDeck":
+         return { ...state, showFullDeck: !state.showFullDeck };
       default:
          return state;
    }

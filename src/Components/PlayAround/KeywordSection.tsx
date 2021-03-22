@@ -1,10 +1,10 @@
-import { Card } from "Constants/types";
+import { DisplayCard } from "Constants/types";
 import { getKeywordUrl } from "Helpers/helpers";
 import CardElement from "./CardElement";
 
 interface Props {
    keyword: string;
-   cards: any[];
+   cards: DisplayCard[];
    userScale: number;
 }
 
@@ -20,11 +20,10 @@ export default function KeywordSection({ keyword, cards, userScale }: Props) {
             <span className="text-gray-100">{keyword}</span>
          </div>
          <div className="flex flex-row flex-wrap p-12 justify-center sm:justify-start gap-3">
-            {cards.map((c: Card, index: number) => (
+            {cards.map((c: DisplayCard, index: number) => (
                <CardElement
                   key={`${c.name}-${index}`}
-                  art={c.art}
-                  name={c.name}
+                  card={c}
                   userScale={userScale}
                />
             ))}

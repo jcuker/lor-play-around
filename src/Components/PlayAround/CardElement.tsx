@@ -7,14 +7,14 @@ import {
    useState,
 } from "react";
 import cardBack from "@images/cardBack.png";
+import { DisplayCard } from "Constants/types";
 
 interface Props {
-   art: string;
-   name: string;
+   card: DisplayCard;
    userScale: number;
 }
 
-export default function CardElement({ art, name, userScale }: Props) {
+export default function CardElement({ card, userScale }: Props) {
    const [scale, setScale] = useState(getCardScaleFromScreenSize());
    const [src, setSrc] = useState(cardBack);
    const imgRef = useRef<HTMLImageElement>(null);
@@ -34,7 +34,7 @@ export default function CardElement({ art, name, userScale }: Props) {
                         !didCancel &&
                         (entry.intersectionRatio > 0 || entry.isIntersecting)
                      ) {
-                        setSrc(art);
+                        setSrc(card.art);
                      }
                   });
                },
@@ -46,7 +46,7 @@ export default function CardElement({ art, name, userScale }: Props) {
             observer.observe(element.current);
          } else {
             // Old browsers fallback
-            setSrc(art);
+            setSrc(card.art);
          }
       }
 
@@ -56,7 +56,7 @@ export default function CardElement({ art, name, userScale }: Props) {
             observer.unobserve(element.current as Element);
          }
       };
-   }, [art]);
+   }, [card.art]);
 
    const updateSize = useCallback(() => {
       const cardScale = getCardScaleFromScreenSize();
@@ -74,14 +74,19 @@ export default function CardElement({ art, name, userScale }: Props) {
    }, [updateSize]);
 
    return (
-      <img
-         ref={imgRef}
-         src={src}
-         alt={name}
-         style={{
-            height: 1024 / (scale - userScale),
-            width: 728 / (scale - userScale),
-         }}
-      />
+      <div className="relative">
+         <img
+            ref={imgRef}
+            src={src}
+            alt={card.name}
+            style={{
+               height: 1024 / (scale - userScale),
+               width: 728 / (scale - userScale),
+            }}
+         />
+         <div className="absolute top-0 right-0 text-gray-100">
+            {card.count}
+         </div>
+      </div>
    );
 }

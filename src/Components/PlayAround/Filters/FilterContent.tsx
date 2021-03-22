@@ -7,13 +7,22 @@ import { useCallback, useMemo } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import DeckImporter from "./DeckImporter";
+import { useLocation } from "react-router";
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
    manaFilter: number;
    scale: number;
+   showFullDeck: boolean;
 }
 
-export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
+export default function FilterContent({
+   dispatch,
+   manaFilter,
+   scale,
+   showFullDeck,
+}: Props) {
+   const location = useLocation();
+
    const onManaClick = useCallback(
       (val: number) => {
          dispatch({ type: "SetManaFilter", payload: val });
@@ -102,6 +111,24 @@ export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
    //    );
    // }, []);
 
+   const fullDeckContent = useMemo(() => {
+      return (
+         <>
+            <label className="inline-flex items-center mt-3">
+               <input
+                  type="checkbox"
+                  className="form-checkbox h-5 w-5 text-teal-600"
+                  checked={showFullDeck}
+                  onChange={() => dispatch({ type: "ToggleShowFullDeck" })}
+               />
+               <span className="ml-2 text-gray-100 text-sm">
+                  View Full Deck (not just what to play around)
+               </span>
+            </label>
+         </>
+      );
+   }, [dispatch, showFullDeck]);
+
    return (
       <div className="flex flex-col gap-3 m-2">
          <FilterSection content={cardSizeContent} heading="Card Size" />
@@ -113,6 +140,9 @@ export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
             content={<DeckImporter />}
             heading="Import Decklist From Code"
          />
+         {location.search.includes("code") && (
+            <FilterSection content={fullDeckContent} heading="" />
+         )}
          <FilterSection
             content={<></>}
             heading="Use 1-7 to quickly adjust the mana filter. You can also use '-' or

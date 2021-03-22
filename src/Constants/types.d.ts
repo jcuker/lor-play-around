@@ -1,3 +1,4 @@
+// This is how the cards are simplified from the LoR API
 export interface Card {
    name: string;
    art: string; // url to the art
@@ -6,7 +7,13 @@ export interface Card {
    cost: number;
 }
 
+// This is how the Runeterra JS package parses deck codes
 export interface DecodedCard {
    code: string;
    count: number;
+}
+
+// This is used for display purposes to show the number in the top left of a card instead of multiple copies
+export interface DisplayCard extends Card {
+   count?: number;
 }
