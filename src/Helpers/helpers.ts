@@ -6,17 +6,32 @@ import {
    SCREEN_BREAKPOINTS,
    SHORT_CODE_TO_REGION,
 } from "Constants/constants";
-import { Card, DeckEncoder } from "runeterra";
-import { DecodedCard } from "Constants/types";
+import { Card as RuneterraDecoderCard, DeckEncoder } from "runeterra";
+import { Card, DecodedCard } from "Constants/types";
 
 export function getCardsForRegion(region: string) {
    return (metadata as Record<string, any>)[region];
 }
 
-export function filterCardsForRegionByList(region: string, list: string[]) {
-   return getCardsForRegion(region).filter(
-      (card: any) => list.includes(card.name) || list.includes(card.code)
+export function filterCardsForRegionByList(
+   region: string,
+   list: string[],
+   decodedCards?: DecodedCard[]
+) {
+   let cards = getCardsForRegion(region).filter(
+      (card: Card) => list.includes(card.name) || list.includes(card.code)
    );
+
+   if (decodedCards) {
+      cards = cards.filter(
+         (card: Card) =>
+            !!decodedCards.find(
+               (decoded: DecodedCard) => decoded.code === card.code
+            )
+      );
+   }
+
+   return cards;
 }
 
 export function getKeywordUrl(keyword: string) {
@@ -86,7 +101,7 @@ export function isOnMobile(): boolean {
    })(navigator.userAgent || navigator.vendor || (window as any).opera);
 }
 
-export function decodeDeck(code: string): Card[] {
+export function decodeDeck(code: string): RuneterraDecoderCard[] {
    const decodedDeck = DeckEncoder.decode(code);
 
    if (decodedDeck.length === 0) {
@@ -102,11 +117,11 @@ export function decodeDeckCodeToCardList({
    decoded,
 }: {
    code?: string;
-   decoded?: Card[];
+   decoded?: RuneterraDecoderCard[];
 }) {
    const decodedDeck = code ? decodeDeck(code) : decoded;
 
-   if (!decodedDeck) return [];
+   if (!decodedDeck) return {};
 
    const decodedToList = decodedDeck.reduce(
       (acc: Record<string, string[]>, curr: DecodedCard) => {

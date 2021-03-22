@@ -1,7 +1,7 @@
 import { getList } from "Api/api";
 import Region from "Components/Region/Region";
 import { SHORT_CODE_TO_REGION } from "Constants/constants";
-import { Card } from "Constants/types";
+import { Card, DecodedCard } from "Constants/types";
 import {
    decodeDeck,
    decodeDeckCodeToCardList,
@@ -22,6 +22,7 @@ export interface URLParams {
 export default function PlayAround() {
    const location = useLocation();
    const [regions, setRegions] = useState<string[]>([]);
+   const [decodedCards, setDecodedCards] = useState<DecodedCard[]>();
    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
    useEffect(
@@ -54,7 +55,7 @@ export default function PlayAround() {
                setRegions(incomingRegions);
             }
 
-            let cardList;
+            let cardList = await getList("default", true);
 
             if (parsedQueryString["code"]) {
                const decoded = decodeDeck(parsedQueryString["code"]);
@@ -63,10 +64,8 @@ export default function PlayAround() {
                   .filter(
                      (value, index, self) => self.indexOf(value) === index
                   );
-               cardList = decodeDeckCodeToCardList({ decoded });
                setRegions(regions);
-            } else {
-               cardList = await getList("default", true);
+               setDecodedCards(decoded);
             }
 
             dispatch({ type: "SetCardList", payload: cardList });
@@ -81,7 +80,11 @@ export default function PlayAround() {
       if (Object.keys(state.cardList).length === 0) return {};
 
       let matchingCards = regions.flatMap((region) =>
-         filterCardsForRegionByList(region, state.cardList[region])
+         filterCardsForRegionByList(
+            region,
+            state.cardList[region],
+            decodedCards
+         )
       );
 
       if (state.manaFilter !== 7) {
