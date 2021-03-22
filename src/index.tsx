@@ -13,7 +13,7 @@ ReactDOM.render(
       <Router basename={process.env.PUBLIC_URL}>
          {/* <AboutIcon /> */}
          <Switch>
-            <Route path="/around/:regions">
+            <Route path="/around">
                <PlayAround />
             </Route>
             {/* <Route path="/about">

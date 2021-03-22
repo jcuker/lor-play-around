@@ -2,7 +2,12 @@ import { getList } from "Api/api";
 import Region from "Components/Region/Region";
 import { SHORT_CODE_TO_REGION } from "Constants/constants";
 import { Card } from "Constants/types";
-import { filterCardsForRegionByList } from "Helpers/helpers";
+import {
+   decodeDeck,
+   decodeDeckCodeToCardList,
+   filterCardsForRegionByList,
+   getRegionFromCardCode,
+} from "Helpers/helpers";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { useLocation } from "react-router";
 import Filters from "./Filters/Filters";
@@ -10,15 +15,67 @@ import KeywordSection from "./KeywordSection";
 import { reducer, INITIAL_STATE } from "./reducer";
 
 export interface URLParams {
-   list?: string;
    code?: string;
+   region?: string;
 }
 
-// TODO - make mana a range only selct one and then show for that down
 export default function PlayAround() {
    const location = useLocation();
    const [regions, setRegions] = useState<string[]>([]);
    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+
+   useEffect(
+      function onMount() {
+         async function asyncWrapper() {
+            const queryStringObj = location.search.substring(1).split("&");
+
+            if (queryStringObj.length === 0) {
+               console.warn("Need a QS");
+               return;
+            }
+
+            const parsedQueryString = queryStringObj.reduce(
+               (acc: Record<string, string>, curr: string) => {
+                  const keyValArr = curr.split("=");
+                  const newAcc = { ...acc };
+                  newAcc[keyValArr[0]] = keyValArr[1];
+                  return newAcc;
+               },
+               {}
+            );
+
+            if (parsedQueryString["region"]) {
+               const regionStr = queryStringObj[0].split("=")[1];
+               const incomingRegions = regionStr
+                  .split(",")
+                  .map((r) => SHORT_CODE_TO_REGION[r] || "")
+                  .filter((r) => !!r);
+
+               setRegions(incomingRegions);
+            }
+
+            let cardList;
+
+            if (parsedQueryString["code"]) {
+               const decoded = decodeDeck(parsedQueryString["code"]);
+               const regions = decoded
+                  .map((val) => getRegionFromCardCode(val.code, false))
+                  .filter(
+                     (value, index, self) => self.indexOf(value) === index
+                  );
+               cardList = decodeDeckCodeToCardList({ decoded });
+               setRegions(regions);
+            } else {
+               cardList = await getList("default", true);
+            }
+
+            dispatch({ type: "SetCardList", payload: cardList });
+         }
+
+         asyncWrapper();
+      },
+      [location]
+   );
 
    const cards = useMemo(() => {
       if (Object.keys(state.cardList).length === 0) return {};
@@ -42,23 +99,6 @@ export default function PlayAround() {
 
       return cardsSplitBySpeed;
    }, [state.cardList, regions, state.manaFilter]);
-
-   useEffect(() => {
-      async function func() {
-         const list = await getList("default", true);
-         dispatch({ type: "SetCardList", payload: list });
-
-         const pathSplit = location.pathname.split("/");
-         const incomingRegions = pathSplit[pathSplit.length - 1]
-            .split(",")
-            .map((r) => SHORT_CODE_TO_REGION[r] || "")
-            .filter((r) => !!r);
-
-         setRegions(incomingRegions);
-      }
-
-      func();
-   }, [location]);
 
    useEffect(() => {
       function listenForNumPressed(ev: KeyboardEvent) {

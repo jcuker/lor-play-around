@@ -23,7 +23,7 @@ function Landing() {
 
       historyString = historyString.substr(0, historyString.length - 1);
 
-      history.push(`/around/${historyString}`);
+      history.push(`/around?region=${historyString}`);
    }
 
    return (

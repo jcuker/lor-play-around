@@ -4,7 +4,10 @@ import {
    DECKCODE_REGION_TO_SHORT_CODE,
    REGION_TO_DECKCODE_ID,
    SCREEN_BREAKPOINTS,
+   SHORT_CODE_TO_REGION,
 } from "Constants/constants";
+import { Card, DeckEncoder } from "runeterra";
+import { DecodedCard } from "Constants/types";
 
 export function getCardsForRegion(region: string) {
    return (metadata as Record<string, any>)[region];
@@ -63,9 +66,10 @@ export function isSmallScreen(): boolean {
    return screenWidth < SCREEN_BREAKPOINTS.md;
 }
 
-export function getRegionFromCardCode(code: string) {
+export function getRegionFromCardCode(code: string, shortCode: boolean = true) {
    const regionStr = code.substring(2, 4);
-   return DECKCODE_REGION_TO_SHORT_CODE[regionStr];
+   const asShortCode = DECKCODE_REGION_TO_SHORT_CODE[regionStr];
+   return shortCode ? asShortCode : SHORT_CODE_TO_REGION[asShortCode];
 }
 
 export function isOnMobile(): boolean {
@@ -80,4 +84,40 @@ export function isOnMobile(): boolean {
          )
       );
    })(navigator.userAgent || navigator.vendor || (window as any).opera);
+}
+
+export function decodeDeck(code: string): Card[] {
+   const decodedDeck = DeckEncoder.decode(code);
+
+   if (decodedDeck.length === 0) {
+      console.warn("invalid deck code");
+      return [];
+   }
+
+   return decodedDeck;
+}
+
+export function decodeDeckCodeToCardList({
+   code,
+   decoded,
+}: {
+   code?: string;
+   decoded?: Card[];
+}) {
+   const decodedDeck = code ? decodeDeck(code) : decoded;
+
+   if (!decodedDeck) return [];
+
+   const decodedToList = decodedDeck.reduce(
+      (acc: Record<string, string[]>, curr: DecodedCard) => {
+         const region = SHORT_CODE_TO_REGION[getRegionFromCardCode(curr.code)];
+         const newVal = { ...acc };
+         if (!Array.isArray(newVal[region])) newVal[region] = [];
+         newVal[region].push(curr.code);
+         return newVal;
+      },
+      {}
+   );
+
+   return decodedToList;
 }

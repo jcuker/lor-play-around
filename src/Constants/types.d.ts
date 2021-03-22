@@ -5,3 +5,8 @@ export interface Card {
    speed: string;
    cost: number;
 }
+
+export interface DecodedCard {
+   code: string;
+   count: number;
+}

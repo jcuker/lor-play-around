@@ -110,14 +110,14 @@ export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
             heading="Mana Cost (x or less)"
          />
          <FilterSection
+            content={<DeckImporter />}
+            heading="Import Decklist From Code"
+         />
+         <FilterSection
             content={<></>}
             heading="Use 1-7 to quickly adjust the mana filter. You can also use '-' or
             '+/=' to adjust the zoom level."
          />
-         {/* <FilterSection
-            content={<DeckImporter dispatch={dispatch} />}
-            heading="Import Decklist From Code"
-         /> */}
       </div>
    );
 }
