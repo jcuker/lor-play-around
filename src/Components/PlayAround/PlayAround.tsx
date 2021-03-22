@@ -101,7 +101,7 @@ export default function PlayAround() {
       }, {});
 
       return cardsSplitBySpeed;
-   }, [state.cardList, regions, state.manaFilter]);
+   }, [state.cardList, state.manaFilter, regions, decodedCards]);
 
    useEffect(() => {
       function listenForNumPressed(ev: KeyboardEvent) {
