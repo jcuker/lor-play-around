@@ -9,22 +9,16 @@ import "rc-slider/assets/index.css";
 import DeckImporter from "./DeckImporter";
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
-   manaFilter: number[];
+   manaFilter: number;
    scale: number;
 }
 
 export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
    const onManaClick = useCallback(
       (val: number) => {
-         const newFilter = [...manaFilter];
-
-         manaFilter.includes(val)
-            ? newFilter.splice(newFilter.indexOf(val), 1)
-            : newFilter.push(val);
-
-         dispatch({ type: "SetManaFilter", payload: newFilter });
+         dispatch({ type: "SetManaFilter", payload: val });
       },
-      [dispatch, manaFilter]
+      [dispatch]
    );
 
    const cardSizeContent = useMemo(() => {
@@ -71,7 +65,7 @@ export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
             {Object.keys(MANA_VALUES).map((key: string) => (
                <div
                   className={`flex text-white justify-center items-center opacity-${
-                     manaFilter.includes(MANA_VALUES[key]) ? 100 : 50
+                     manaFilter === MANA_VALUES[key] ? 100 : 50
                   } hover:opacity-100`}
                   style={{
                      backgroundImage:
@@ -99,10 +93,27 @@ export default function FilterContent({ dispatch, manaFilter, scale }: Props) {
       );
    }, [manaFilter, onManaClick]);
 
+   const tipsContent = useMemo(() => {
+      return (
+         <span className="text-gray-100">
+            Use 1-7 to quickly adjust the mana filter. You can also use '-' or
+            '+/=' to adjust the zoom level.
+         </span>
+      );
+   }, []);
+
    return (
       <div className="flex flex-col gap-3 m-2">
          <FilterSection content={cardSizeContent} heading="Card Size" />
-         <FilterSection content={manaFilterContent} heading="Mana Cost" />
+         <FilterSection
+            content={manaFilterContent}
+            heading="Mana Cost (x or less)"
+         />
+         <FilterSection
+            content={<></>}
+            heading="Use 1-7 to quickly adjust the mana filter. You can also use '-' or
+            '+/=' to adjust the zoom level."
+         />
          {/* <FilterSection
             content={<DeckImporter dispatch={dispatch} />}
             heading="Import Decklist From Code"

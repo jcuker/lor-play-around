@@ -4,7 +4,7 @@ import SlideMenu from "./SlideMenu";
 
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
-   manaFilter: number[];
+   manaFilter: number;
    scale: number;
 }
 

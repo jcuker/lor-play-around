@@ -3,7 +3,7 @@ import { isOnMobile } from "Helpers/helpers";
 
 export interface PlayAroundState {
    userScale: number;
-   manaFilter: number[];
+   manaFilter: number;
    inCombat: boolean;
    cardList: Record<string, string[]>;
    showRegions: boolean;
@@ -25,8 +25,8 @@ export interface PlayAroundAction {
 
 export const INITIAL_STATE: PlayAroundState = {
    userScale: 1,
-   manaFilter: [],
    inCombat: false,
+   manaFilter: 7,
    cardList: {},
    showRegions: !isOnMobile(),
 };
@@ -41,7 +41,7 @@ export function reducer(
       case "SetInCombat":
          return { ...state, inCombat: action.payload };
       case "SetManaFilter":
-         return { ...state, manaFilter: [...action.payload] };
+         return { ...state, manaFilter: action.payload };
       case "IncreaseUserScale":
          return {
             ...state,

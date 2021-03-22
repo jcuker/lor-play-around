@@ -14,6 +14,7 @@ export interface URLParams {
    code?: string;
 }
 
+// TODO - make mana a range only selct one and then show for that down
 export default function PlayAround() {
    const location = useLocation();
    const [regions, setRegions] = useState<string[]>([]);
@@ -26,12 +27,9 @@ export default function PlayAround() {
          filterCardsForRegionByList(region, state.cardList[region])
       );
 
-      if (state.manaFilter.length > 0) {
+      if (state.manaFilter !== 7) {
          matchingCards = matchingCards.filter((card: Card) => {
-            return (
-               state.manaFilter.includes(card.cost) ||
-               (state.manaFilter.includes(7) && card.cost >= 7)
-            );
+            return card.cost <= state.manaFilter;
          });
       }
 
@@ -47,7 +45,6 @@ export default function PlayAround() {
 
    useEffect(() => {
       async function func() {
-         console.log(location);
          const list = await getList("default", true);
          dispatch({ type: "SetCardList", payload: list });
 
@@ -62,6 +59,53 @@ export default function PlayAround() {
 
       func();
    }, [location]);
+
+   useEffect(() => {
+      function listenForNumPressed(ev: KeyboardEvent) {
+         let filter = 0;
+
+         switch (ev.code) {
+            case "Digit1":
+               filter = 1;
+               break;
+            case "Digit2":
+               filter = 2;
+               break;
+            case "Digit3":
+               filter = 3;
+               break;
+            case "Digit4":
+               filter = 4;
+               break;
+            case "Digit5":
+               filter = 5;
+               break;
+            case "Digit6":
+               filter = 6;
+               break;
+            case "Digit7":
+            case "Digit8":
+            case "Digit9":
+               filter = 7;
+               break;
+            default:
+               break;
+         }
+
+         if (filter > 0) dispatch({ type: "SetManaFilter", payload: filter });
+         else if (ev.code === "Equal") {
+            dispatch({ type: "IncreaseUserScale" });
+         } else if (ev.code === "Minus") {
+            dispatch({ type: "DecreaseUserScale" });
+         }
+      }
+
+      document.addEventListener("keydown", listenForNumPressed);
+
+      return () => {
+         document.removeEventListener("keydown", listenForNumPressed);
+      };
+   }, [dispatch]);
 
    return (
       <div className="flex flex-col">
