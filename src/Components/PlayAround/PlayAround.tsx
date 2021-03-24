@@ -161,7 +161,7 @@ export default function PlayAround() {
       return () => {
          document.removeEventListener("keydown", keyListener);
       };
-   }, [dispatch]);
+   }, [decodedCards, dispatch]);
 
    return (
       <div className="flex flex-col">

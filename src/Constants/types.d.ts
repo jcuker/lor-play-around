@@ -17,3 +17,22 @@ export interface DecodedCard {
 export interface DisplayCard extends Card {
    count?: number;
 }
+
+export interface MobalyticsMetaStatResponse {
+   hasNext: boolean;
+   decksStats: MetaDeck[];
+}
+
+export interface MetaDeck {
+   uuid: string;
+   rank: number;
+   regions: string[];
+   title: string;
+   playStyle: string;
+   playRate: number;
+   cardsCode: string;
+   matchesCollected: number;
+   matchesWin: number;
+   wins: number;
+   losses: number;
+}

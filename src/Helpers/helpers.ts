@@ -155,3 +155,18 @@ export function convertDecodedCardsToDisplayCards(
       .forEach((c) => uniq.add(c));
    return Array.from(uniq);
 }
+
+export function getChampsFromDeck(code: string): string[] {
+   const decoded = decodeDeck(code);
+
+   const champs: string[] = decoded.map((dCard: DecodedCard) => {
+      const region = getRegionFromCardCode(dCard.code, false);
+      return (
+         getCardsForRegion(region).find(
+            (card: DisplayCard) => card.code === dCard.code
+         )?.name || ""
+      );
+   });
+
+   return champs.length === 0 ? ["No Champs"] : champs;
+}

@@ -17,7 +17,11 @@ export default function DefaultContent() {
       } else setSelectedRegions([...selectedRegions, name]);
    }
 
-   function transition() {
+   function transition(to?: string) {
+      if (to !== undefined) {
+         history.push(to);
+         return;
+      }
       if (selectedRegions.length > 0) {
          let historyString: string = selectedRegions
             .map((region) => REGION_TO_SHORT_CODE[region])
@@ -61,17 +65,31 @@ export default function DefaultContent() {
                type="text"
                placeholder="Deck Code"
             />
-            <button
-               className="flex bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 disabled:opacity-50 disabled:cursor-not-allowed"
-               type="button"
-               style={{
-                  transition: "all .15s ease",
-               }}
-               disabled={selectedRegions.length === 0 && deckCode === ""}
-               onClick={transition}
-            >
-               Show Me What to Play Around
-            </button>
+            <div className="flex flex-row w-full justify-evenly gap-3">
+               <button
+                  className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="button"
+                  style={{
+                     transition: "all .15s ease",
+                     flex: 1,
+                  }}
+                  onClick={() => transition("/meta")}
+               >
+                  Show Me Meta Decks
+               </button>
+               <button
+                  className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="button"
+                  style={{
+                     transition: "all .15s ease",
+                     flex: 1,
+                  }}
+                  disabled={selectedRegions.length === 0 && deckCode === ""}
+                  onClick={() => transition()}
+               >
+                  Show Me What to Play Around
+               </button>
+            </div>
          </div>
       </div>
    );
