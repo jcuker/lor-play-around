@@ -23,11 +23,15 @@ export interface RegionProps {
    onClick?: ({ name, style, onClick }: RegionProps) => void;
    selected?: boolean;
    style?: any;
+   customScale?: number;
+   showName?: boolean;
 }
 export default function Region({
    name,
    style,
    onClick,
+   showName = true,
+   customScale = 1,
    selected,
 }: RegionProps) {
    const [scale, setScale] = useState(getRegionScaleFromScreenSize());
@@ -67,8 +71,13 @@ export default function Region({
             return shurima;
          case "Targon":
             return targon;
+         default:
+            console.log(`Unable to match region: ${name}`);
       }
    }, [name]);
+
+   const height = customScale ? 128 / customScale : 128 / scale;
+   const width = customScale ? 128 / customScale : 128 / scale;
 
    return (
       <div className="relative flex flex-col items-center">
@@ -79,20 +88,20 @@ export default function Region({
             style={{
                margin: 4,
                flex: 0,
-               height: 128 / scale,
-               width: 128 / scale,
+               height,
+               width,
                ...style,
             }}
             onClick={(s) => onClick?.({ name, style })}
          />
-         <span className="text-gray-100">{name}</span>
+         {showName && <span className="text-gray-100">{name}</span>}
          {selected && (
             <img
                src={checkImg}
                alt="selected"
                style={{
-                  height: 24 / scale,
-                  width: 24 / scale,
+                  height: height / 5.333,
+                  width: width / 5.333,
                   position: "absolute",
                   top: 0,
                   right: 0,

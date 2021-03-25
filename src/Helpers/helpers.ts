@@ -156,17 +156,18 @@ export function convertDecodedCardsToDisplayCards(
    return Array.from(uniq);
 }
 
-export function getChampsFromDeck(code: string): string[] {
+export function getChampsFromDeck(code: string): DisplayCard[] {
    const decoded = decodeDeck(code);
 
-   const champs: string[] = decoded.map((dCard: DecodedCard) => {
-      const region = getRegionFromCardCode(dCard.code, false);
-      return (
-         getCardsForRegion(region).find(
+   const champs = decoded
+      .map((dCard: DecodedCard) => {
+         const region = getRegionFromCardCode(dCard.code, false);
+         return getCardsForRegion(region).find(
             (card: DisplayCard) => card.code === dCard.code
-         )?.name || ""
-      );
-   });
+         ) as DisplayCard;
+      })
+      .filter((card) => card.isChamp)
+      .sort((a, b) => (a.name > b.name ? 1 : -1));
 
-   return champs.length === 0 ? ["No Champs"] : champs;
+   return champs as DisplayCard[];
 }

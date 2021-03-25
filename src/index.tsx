@@ -1,6 +1,6 @@
 import Footer from "Components/Footer/Footer";
 import Landing from "Components/Landing/Landing";
-import MetaDecks from "Components/Landing/MetaDecks";
+import MetaDecks from "Components/MetaDecks/MetaDecks";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";

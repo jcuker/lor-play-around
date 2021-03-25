@@ -3,8 +3,9 @@ export interface Card {
    name: string;
    art: string; // url to the art
    code: string;
-   speed: string;
+   speed?: string;
    cost: number;
+   isChamp?: boolean;
 }
 
 // This is how the Runeterra JS package parses deck codes
