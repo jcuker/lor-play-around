@@ -8,6 +8,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import DeckImporter from "./DeckImporter";
 import { useLocation } from "react-router";
+import ManaGem from "./ManaGem";
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
    manaFilter: number;
@@ -72,31 +73,12 @@ export default function FilterContent({
             style={{ flex: 1 }}
          >
             {Object.keys(MANA_VALUES).map((key: string) => (
-               <div
-                  className={`flex text-white justify-center items-center opacity-${
-                     manaFilter === MANA_VALUES[key] ? 100 : 50
-                  } hover:opacity-100`}
-                  style={{
-                     backgroundImage:
-                        "linear-gradient(319deg, rgb(0, 212, 255) 15%, rgb(2, 0, 36) 31%, rgb(2, 0, 36) 69%, rgb(0, 212, 255) 75%)",
-                     borderRadius: "50%",
-                     height: "4vw",
-                     minHeight: 27,
-                     maxHeight: 64,
-                     width: "4vw",
-                     minWidth: 27,
-                     maxWidth: 64,
-                     border: "1px solid rgb(189, 158, 89)",
-                     boxShadow:
-                        "rgba(20, 11, 36, 0.8) 0px 0px 6px 0px, black 0px 0px 0px 2px inset",
-                  }}
-                  onClick={() => {
-                     onManaClick(MANA_VALUES[key]);
-                  }}
+               <ManaGem
                   key={key}
-               >
-                  {key}
-               </div>
+                  val={key}
+                  onClick={(val) => onManaClick(val)}
+                  selected={manaFilter === MANA_VALUES[key]}
+               />
             ))}
          </div>
       );
