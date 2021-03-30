@@ -27,7 +27,7 @@ export default function MetaDecks() {
          <span className="text-gray-100 text-center mt-4 text-lg font-bold">
             The Top {decks.length} Meta Decks
          </span>
-         <div className="flex flex-row flex-wrap gap-3 justify-evenly items-center p-6">
+         <div className="flex flex-row flex-wrap gap-3 justify-start items-center p-6">
             {deckElements}
          </div>
       </div>

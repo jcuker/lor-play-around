@@ -2,14 +2,17 @@ import metadata from "../Constants/metadata.json";
 import card from "@images/card.svg";
 import {
    DECKCODE_REGION_TO_SHORT_CODE,
+   REGIONS,
    SCREEN_BREAKPOINTS,
    SHORT_CODE_TO_REGION,
 } from "Constants/constants";
 import { Card as RuneterraDecoderCard, DeckEncoder } from "runeterra";
 import { Card, DecodedCard, DisplayCard } from "Constants/types";
 
+const cardsByRegion = metadata as Record<string, DisplayCard[]>;
+
 export function getCardsForRegion(region: string) {
-   return (metadata as Record<string, DisplayCard[]>)[region];
+   return cardsByRegion[region];
 }
 
 export function filterCardsForRegionByList(
@@ -170,4 +173,35 @@ export function getChampsFromDeck(code: string): DisplayCard[] {
       .sort((a, b) => (a.name > b.name ? 1 : -1));
 
    return champs as DisplayCard[];
+}
+
+export interface GetCardsCriteria {
+   region?: string;
+   subtype?: string;
+   cost?: number;
+}
+
+export function getCardsByCriteria({
+   cost,
+   region,
+   subtype,
+}: GetCardsCriteria): DisplayCard[] {
+   if (region) {
+      return getCardsForRegion(region);
+   }
+
+   let allCards: DisplayCard[] = [];
+   for (const r of REGIONS) {
+      allCards = allCards.concat(getCardsForRegion(r));
+   }
+
+   if (cost) {
+      return allCards.filter((card) => card.cost === cost);
+   } else if (subtype) {
+      return allCards.filter(
+         (card) => card.subtype.toLowerCase() === subtype.toLowerCase()
+      );
+   }
+
+   return allCards;
 }

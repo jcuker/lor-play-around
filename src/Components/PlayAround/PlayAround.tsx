@@ -6,6 +6,7 @@ import {
    convertDecodedCardsToDisplayCards,
    decodeDeck,
    filterCardsForRegionByList,
+   getCardsByCriteria,
    getRegionFromCardCode,
 } from "Helpers/helpers";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
@@ -21,6 +22,7 @@ export interface URLParams {
 
 export default function PlayAround() {
    const location = useLocation();
+   // Full region name
    const [regions, setRegions] = useState<string[]>([]);
    const [decodedCards, setDecodedCards] = useState<DecodedCard[]>();
    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
@@ -89,6 +91,11 @@ export default function PlayAround() {
               );
            });
 
+      if (decodedCards && regions.includes("Targon")) {
+         // Add in celestial cards as they can be created
+         const celestialCards = getCardsByCriteria({ subtype: "Celestial" });
+         matchingCards = matchingCards.concat(celestialCards);
+      }
       if (state.manaFilter !== 7) {
          matchingCards = matchingCards.filter((card: Card) => {
             return card.cost <= state.manaFilter;

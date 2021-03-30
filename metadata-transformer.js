@@ -49,7 +49,8 @@ try {
       speed: c.spellSpeed ? c.spellSpeed.trim() : undefined,
       cost: c.cost,
       // Ignore if not a champion
-      isChamp: c.rarity === 'Champion' ? true : undefined
+      isChamp: c.rarity === 'Champion' ? true : undefined,
+      subtype: c.subtype
    }))
 
    console.log('Writing metadata to output file');

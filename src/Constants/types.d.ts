@@ -6,6 +6,7 @@ export interface Card {
    speed?: string;
    cost: number;
    isChamp?: boolean;
+   subtype: string;
 }
 
 // This is how the Runeterra JS package parses deck codes
