@@ -1,13 +1,17 @@
-import metadata from "../Constants/metadata.json";
-import card from "@images/card.svg";
+import metadata from '../Constants/metadata.json';
+import card from '@images/card.svg';
 import {
    DECKCODE_REGION_TO_SHORT_CODE,
    REGIONS,
    SCREEN_BREAKPOINTS,
    SHORT_CODE_TO_REGION,
-} from "Constants/constants";
-import { Card as RuneterraDecoderCard, DeckEncoder } from "runeterra";
-import { Card, DecodedCard, DisplayCard } from "Constants/types";
+} from 'Constants/constants';
+import { Card, DisplayCard } from 'Constants/types';
+import LoRDeckCode from '../lib/LoRDeckCode/LoRDeckCode';
+import {
+   CardCodeAndCount,
+   Deck as DecodedDeck,
+} from '../lib/LoRDeckCode/types';
 
 const cardsByRegion = metadata as Record<string, DisplayCard[]>;
 
@@ -18,7 +22,7 @@ export function getCardsForRegion(region: string) {
 export function filterCardsForRegionByList(
    region: string,
    list: string[],
-   decodedCards?: DecodedCard[]
+   decodedCards?: DecodedDeck
 ): DisplayCard[] {
    let cards = getCardsForRegion(region).filter(
       (card: DisplayCard) =>
@@ -29,7 +33,7 @@ export function filterCardsForRegionByList(
       cards = cards.filter(
          (card: Card) =>
             !!decodedCards.find(
-               (decoded: DecodedCard) => decoded.code === card.code
+               (decoded: CardCodeAndCount) => decoded.cardCode === card.code
             )
       );
    }
@@ -38,9 +42,9 @@ export function filterCardsForRegionByList(
 }
 
 export function getKeywordUrl(keyword: string) {
-   return keyword === "Unit / Landmark"
+   return keyword === 'Unit / Landmark'
       ? card
-      : process.env.REACT_APP_KEYWORDS_CDN + keyword + ".svg";
+      : process.env.REACT_APP_KEYWORDS_CDN + keyword + '.svg';
 }
 
 export function getCardScaleFromScreenSize(): number {
@@ -104,11 +108,11 @@ export function isOnMobile(): boolean {
    })(navigator.userAgent || navigator.vendor || (window as any).opera);
 }
 
-export function decodeDeck(code: string): RuneterraDecoderCard[] {
-   const decodedDeck = DeckEncoder.decode(code);
+export function decodeDeck(code: string): DecodedDeck {
+   const decodedDeck = LoRDeckCode.getDeckFromCode(code);
 
    if (decodedDeck.length === 0) {
-      console.warn("invalid deck code");
+      console.warn('invalid deck code');
       return [];
    }
 
@@ -120,18 +124,19 @@ export function decodeDeckCodeToCardList({
    decoded,
 }: {
    code?: string;
-   decoded?: RuneterraDecoderCard[];
+   decoded?: DecodedDeck;
 }) {
    const decodedDeck = code ? decodeDeck(code) : decoded;
 
    if (!decodedDeck) return {};
 
    const decodedToList = decodedDeck.reduce(
-      (acc: Record<string, string[]>, curr: DecodedCard) => {
-         const region = SHORT_CODE_TO_REGION[getRegionFromCardCode(curr.code)];
+      (acc: Record<string, string[]>, curr: CardCodeAndCount) => {
+         const region =
+            SHORT_CODE_TO_REGION[getRegionFromCardCode(curr.cardCode)];
          const newVal = { ...acc };
          if (!Array.isArray(newVal[region])) newVal[region] = [];
-         newVal[region].push(curr.code);
+         newVal[region].push(curr.cardCode);
          return newVal;
       },
       {}
@@ -140,17 +145,17 @@ export function decodeDeckCodeToCardList({
    return decodedToList;
 }
 
-function convertDecodedCardToDisplayCard(card: DecodedCard): DisplayCard {
-   const region = getRegionFromCardCode(card.code, false);
+function convertDecodedCardToDisplayCard(card: CardCodeAndCount): DisplayCard {
+   const region = getRegionFromCardCode(card.cardCode, false);
    const found = getCardsForRegion(region).find(
-      (val: Card) => card.code === val.code
+      (val: Card) => card.cardCode === val.code
    );
 
    return { ...found, count: card.count } as DisplayCard;
 }
 
 export function convertDecodedCardsToDisplayCards(
-   decodedCards: DecodedCard[] = []
+   decodedCards: DecodedDeck = []
 ) {
    const uniq = new Set<DisplayCard>();
    decodedCards
@@ -163,10 +168,10 @@ export function getChampsFromDeck(code: string): DisplayCard[] {
    const decoded = decodeDeck(code);
 
    const champs = decoded
-      .map((dCard: DecodedCard) => {
-         const region = getRegionFromCardCode(dCard.code, false);
+      .map((dCard: CardCodeAndCount) => {
+         const region = getRegionFromCardCode(dCard.cardCode, false);
          return getCardsForRegion(region).find(
-            (card: DisplayCard) => card.code === dCard.code
+            (card: DisplayCard) => card.code === dCard.cardCode
          ) as DisplayCard;
       })
       .filter((card) => card.isChamp)
