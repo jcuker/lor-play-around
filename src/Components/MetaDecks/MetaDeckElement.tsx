@@ -54,7 +54,7 @@ export default function MetaDeckElement({ deck }: Props) {
 
    return (
       <div
-         className="w-80 rounded overflow-hidden shadow-xl h-96 flex flex-col bg-gray-600 hover:bg-gray-400 p-2"
+         className="w-72 rounded overflow-hidden shadow-xl h-96 flex flex-col bg-gray-600 hover:bg-gray-400 p-2"
          onClick={() => transition(deck.cardsCode)}
       >
          <div
@@ -67,7 +67,7 @@ export default function MetaDeckElement({ deck }: Props) {
             <div className="font-bold text-xl mb-2 text-center text-gray-100">
                {champs.map((champ) => champ.name).join(' / ')}
             </div>
-            <p className="text-base text-left text-gray-300">
+            <p className="text-sm text-left text-gray-300">
                {`Win Rate: ${(
                   (deck.wins / deck.matchesCollected) *
                   100

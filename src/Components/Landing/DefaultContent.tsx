@@ -1,11 +1,11 @@
-import Region, { RegionProps } from "Components/Region/Region";
-import { REGIONS, REGION_TO_SHORT_CODE } from "Constants/constants";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import Region, { RegionProps } from 'Components/Region/Region';
+import { REGIONS, REGION_TO_SHORT_CODE } from 'Constants/constants';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function DefaultContent() {
    const [selectedRegions, setSelectedRegions] = useState<any[]>([]);
-   const [deckCode, setDeckCode] = useState("");
+   const [deckCode, setDeckCode] = useState('');
    const history = useHistory();
 
    function handleClick({ name }: RegionProps) {
@@ -25,7 +25,7 @@ export default function DefaultContent() {
       if (selectedRegions.length > 0) {
          let historyString: string = selectedRegions
             .map((region) => REGION_TO_SHORT_CODE[region])
-            .reduce((prev, curr) => prev + curr + ",", "");
+            .reduce((prev, curr) => prev + curr + ',', '');
 
          historyString = historyString.substr(0, historyString.length - 1);
 
@@ -38,7 +38,7 @@ export default function DefaultContent() {
    return (
       <div
          className="flex flex-col justify-center items-center"
-         style={{ minHeight: "100vh" }}
+         style={{ minHeight: '100vh', padding: 8 }}
       >
          <div className="flex flex-col justify-center items-center mb-12">
             <div className="text-gray-100">
@@ -60,7 +60,7 @@ export default function DefaultContent() {
             <input
                value={deckCode}
                onChange={(e) => setDeckCode(e.target.value)}
-               style={{ alignSelf: "center", justifySelf: "center" }}
+               style={{ alignSelf: 'center', justifySelf: 'center' }}
                className="m-8 w-full h-10 px-3 text-base placeholder-gray-500 border-gray-900 rounded-lg bg-gray-400"
                type="text"
                placeholder="Deck Code"
@@ -70,10 +70,10 @@ export default function DefaultContent() {
                   className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 disabled:opacity-50 disabled:cursor-not-allowed"
                   type="button"
                   style={{
-                     transition: "all .15s ease",
+                     transition: 'all .15s ease',
                      flex: 1,
                   }}
-                  onClick={() => transition("/meta")}
+                  onClick={() => transition('/meta')}
                >
                   Show Me Meta Decks
                </button>
@@ -81,10 +81,10 @@ export default function DefaultContent() {
                   className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 disabled:opacity-50 disabled:cursor-not-allowed"
                   type="button"
                   style={{
-                     transition: "all .15s ease",
+                     transition: 'all .15s ease',
                      flex: 1,
                   }}
-                  disabled={selectedRegions.length === 0 && deckCode === ""}
+                  disabled={selectedRegions.length === 0 && deckCode === ''}
                   onClick={() => transition()}
                >
                   Show Me What to Play Around

@@ -1,17 +1,65 @@
-import { getCardScaleFromScreenSize } from "Helpers/helpers";
+import { getCardScaleFromScreenSize } from 'Helpers/helpers';
 import {
    useCallback,
    useEffect,
    useLayoutEffect,
    useRef,
    useState,
-} from "react";
-import cardBack from "@images/cardBack.png";
-import { DisplayCard } from "Constants/types";
+} from 'react';
+import cardBack from '@images/cardBack.png';
+import { DisplayCard } from 'Constants/types';
 
 interface Props {
    card: DisplayCard;
    userScale: number;
+}
+
+function CardCount({ count }: { count: number }) {
+   const filledColor = 'rgb(198, 169, 35)';
+   const emptyColor = 'rgba(2,0,36,1)';
+
+   function fillCardCount() {
+      let jsx = [];
+
+      for (let i = 0; i < 3; i++) {
+         jsx.push(
+            <div
+               style={{
+                  borderRadius: '50%',
+                  backgroundImage: `radial-gradient(circle, ${
+                     i < count ? filledColor : emptyColor
+                  } 27%, rgba(172,179,64,1) 104%)`,
+                  height: '1rem',
+                  width: '1rem',
+               }}
+            ></div>
+         );
+      }
+
+      // To support non-standard decks with more than 3 copies of a card
+      if (count > 3) {
+         jsx.push(<span className="text-gray-100 text-sm">+{count - 3}</span>);
+      }
+
+      return jsx;
+   }
+
+   return (
+      <div
+         style={{
+            width: '100%',
+            padding: 3,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            gap: 3,
+         }}
+      >
+         {fillCardCount()}
+      </div>
+   );
 }
 
 export default function CardElement({ card, userScale }: Props) {
@@ -40,7 +88,7 @@ export default function CardElement({ card, userScale }: Props) {
                },
                {
                   threshold: 0.01,
-                  rootMargin: "75%",
+                  rootMargin: '75%',
                }
             );
             observer.observe(element.current);
@@ -68,9 +116,9 @@ export default function CardElement({ card, userScale }: Props) {
    }, [updateSize]);
 
    useLayoutEffect(() => {
-      window.addEventListener("resize", updateSize);
+      window.addEventListener('resize', updateSize);
       updateSize();
-      return () => window.removeEventListener("resize", updateSize);
+      return () => window.removeEventListener('resize', updateSize);
    }, [updateSize]);
 
    return (
@@ -86,9 +134,7 @@ export default function CardElement({ card, userScale }: Props) {
                width: 728 / (scale - userScale),
             }}
          />
-         <div className="absolute top-0 right-0 text-gray-100">
-            {card.count}
-         </div>
+         {card.count && <CardCount count={card.count} />}
       </div>
    );
 }

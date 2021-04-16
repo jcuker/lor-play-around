@@ -1,7 +1,7 @@
-import { getMetaDecks } from "Api/mobalytics";
-import { MetaDeck } from "Constants/types";
-import React, { useEffect, useMemo, useState } from "react";
-import MetaDeckElement from "./MetaDeckElement";
+import { getMetaDecks } from 'Api/mobalytics';
+import { MetaDeck } from 'Constants/types';
+import React, { useEffect, useMemo, useState } from 'react';
+import MetaDeckElement from './MetaDeckElement';
 
 export default function MetaDecks() {
    const [decks, setDecks] = useState<MetaDeck[]>([]);
@@ -23,11 +23,11 @@ export default function MetaDecks() {
    }, [decks]);
 
    return (
-      <div style={{ minHeight: "100vh" }} className="flex flex-col">
+      <div style={{ minHeight: '100vh' }} className="flex flex-col">
          <span className="text-gray-100 text-center mt-4 text-lg font-bold">
             The Top {decks.length} Meta Decks
          </span>
-         <div className="flex flex-row flex-wrap gap-3 justify-start items-center p-6">
+         <div className="flex flex-row flex-wrap gap-3 justify-around items-center p-6 ">
             {deckElements}
          </div>
       </div>

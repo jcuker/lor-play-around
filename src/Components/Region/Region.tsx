@@ -1,22 +1,22 @@
-import bilgewater from "@images/regions/bilgewater.png";
-import demacia from "@images/regions/demacia.png";
-import freljord from "@images/regions/freljord.png";
-import ionia from "@images/regions/ionia.png";
-import noxus from "@images/regions/noxus.png";
-import piltoverzaun from "@images/regions/piltoverzaun.png";
-import shadowisles from "@images/regions/shadowisles.png";
-import shurima from "@images/regions/shurima.png";
-import targon from "@images/regions/targon.png";
-import { getRegionScaleFromScreenSize } from "Helpers/helpers";
+import bilgewater from '@images/regions/bilgewater.png';
+import demacia from '@images/regions/demacia.png';
+import freljord from '@images/regions/freljord.png';
+import ionia from '@images/regions/ionia.png';
+import noxus from '@images/regions/noxus.png';
+import piltoverzaun from '@images/regions/piltoverzaun.png';
+import shadowisles from '@images/regions/shadowisles.png';
+import shurima from '@images/regions/shurima.png';
+import targon from '@images/regions/targon.png';
+import { getRegionScaleFromScreenSize } from 'Helpers/helpers';
 import {
    useCallback,
    useEffect,
    useLayoutEffect,
    useMemo,
    useState,
-} from "react";
-import checkImg from "@images/check.png";
-import "./region.css";
+} from 'react';
+import checkImg from '@images/check.png';
+import './region.css';
 
 export interface RegionProps {
    name: string;
@@ -31,7 +31,7 @@ export default function Region({
    style,
    onClick,
    showName = true,
-   customScale = 1,
+   customScale,
    selected,
 }: RegionProps) {
    const [scale, setScale] = useState(getRegionScaleFromScreenSize());
@@ -46,30 +46,30 @@ export default function Region({
    }, [updateSize]);
 
    useLayoutEffect(() => {
-      window.addEventListener("resize", updateSize);
+      window.addEventListener('resize', updateSize);
       updateSize();
-      return () => window.removeEventListener("resize", updateSize);
+      return () => window.removeEventListener('resize', updateSize);
    }, [updateSize]);
 
    const icon = useMemo(() => {
       switch (name) {
-         case "Bilgewater":
+         case 'Bilgewater':
             return bilgewater;
-         case "Demacia":
+         case 'Demacia':
             return demacia;
-         case "Freljord":
+         case 'Freljord':
             return freljord;
-         case "Ionia":
+         case 'Ionia':
             return ionia;
-         case "Noxus":
+         case 'Noxus':
             return noxus;
-         case "Piltover & Zaun":
+         case 'Piltover & Zaun':
             return piltoverzaun;
-         case "Shadow Isles":
+         case 'Shadow Isles':
             return shadowisles;
-         case "Shurima":
+         case 'Shurima':
             return shurima;
-         case "Targon":
+         case 'Targon':
             return targon;
          default:
             console.log(`Unable to match region: ${name}`);
@@ -84,7 +84,7 @@ export default function Region({
          <img
             src={icon}
             alt={name}
-            className={selected ? "img-selected" : undefined}
+            className={selected ? 'img-selected' : undefined}
             style={{
                margin: 4,
                flex: 0,
@@ -102,7 +102,7 @@ export default function Region({
                style={{
                   height: height / 5.333,
                   width: width / 5.333,
-                  position: "absolute",
+                  position: 'absolute',
                   top: 0,
                   right: 0,
                }}
