@@ -1,14 +1,13 @@
-import { PlayAroundAction } from "../reducer";
-import zoomOut from "@images/zoomOut.svg";
-import zoomIn from "@images/zoomIn.svg";
-import { MANA_VALUES, MAXIMUM_SCALE, SCALE_STEP } from "Constants/constants";
-import FilterSection from "./FilterSection";
-import { useCallback, useMemo } from "react";
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
-import DeckImporter from "./DeckImporter";
-import { useLocation } from "react-router";
-import ManaGem from "./ManaGem";
+import { PlayAroundAction } from '../reducer';
+import zoomOut from '@images/zoomOut.svg';
+import zoomIn from '@images/zoomIn.svg';
+import { MANA_VALUES, MAXIMUM_SCALE, SCALE_STEP } from 'Constants/constants';
+import FilterSection from './FilterSection';
+import { useCallback, useMemo } from 'react';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import { useLocation } from 'react-router';
+import ManaGem from './ManaGem';
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
    manaFilter: number;
@@ -26,7 +25,7 @@ export default function FilterContent({
 
    const onManaClick = useCallback(
       (val: number) => {
-         dispatch({ type: "SetManaFilter", payload: val });
+         dispatch({ type: 'SetManaFilter', payload: val });
       },
       [dispatch]
    );
@@ -35,17 +34,17 @@ export default function FilterContent({
       return (
          <>
             <img
-               style={{ height: "2rem", width: "2rem", filter: "invert(100%)" }}
+               style={{ height: '2rem', width: '2rem', filter: 'invert(100%)' }}
                src={zoomOut}
-               onClick={() => dispatch({ type: "DecreaseUserScale" })}
+               onClick={() => dispatch({ type: 'DecreaseUserScale' })}
                alt="magnifying glass with minus inscribed"
             />
             <Slider
                style={{
                   flex: 1,
-                  alignSelf: "center",
-                  marginLeft: "1rem",
-                  marginRight: "1rem",
+                  alignSelf: 'center',
+                  marginLeft: '1rem',
+                  marginRight: '1rem',
                }}
                min={0}
                max={MAXIMUM_SCALE}
@@ -53,13 +52,13 @@ export default function FilterContent({
                defaultValue={scale}
                value={scale}
                onChange={(value) =>
-                  dispatch({ type: "SetUserScale", payload: value })
+                  dispatch({ type: 'SetUserScale', payload: value })
                }
             />
             <img
-               style={{ height: "2rem", width: "2rem", filter: "invert(100%)" }}
+               style={{ height: '2rem', width: '2rem', filter: 'invert(100%)' }}
                src={zoomIn}
-               onClick={() => dispatch({ type: "IncreaseUserScale" })}
+               onClick={() => dispatch({ type: 'IncreaseUserScale' })}
                alt="magnifying glass with plus inscribed"
             />
          </>
@@ -101,7 +100,7 @@ export default function FilterContent({
                   type="checkbox"
                   className="form-checkbox h-5 w-5 text-teal-600"
                   checked={showFullDeck}
-                  onChange={() => dispatch({ type: "ToggleShowFullDeck" })}
+                  onChange={() => dispatch({ type: 'ToggleShowFullDeck' })}
                />
                <span className="ml-2 text-gray-100 text-sm">
                   View Full Deck (not just what to play around)
@@ -118,11 +117,7 @@ export default function FilterContent({
             content={manaFilterContent}
             heading="Mana Cost (x or less)"
          />
-         <FilterSection
-            content={<DeckImporter />}
-            heading="Import Decklist From Code"
-         />
-         {location.search.includes("code") && (
+         {location.search.includes('code') && (
             <FilterSection content={fullDeckContent} heading="" />
          )}
          <FilterSection

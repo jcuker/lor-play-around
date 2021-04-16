@@ -1,15 +1,18 @@
-export const APP_NAME = "LoR Play Around Helper";
+import { DisplayCard } from './types';
+import cardBack from '@images/cardBack.png';
+
+export const APP_NAME = 'LoR Play Around Helper';
 
 export const REGION_TO_SHORT_CODE: Record<string, string> = {
-   Bilgewater: "b",
-   Demacia: "d",
-   Freljord: "f",
-   Ionia: "i",
-   Noxus: "n",
-   "Piltover & Zaun": "p",
-   "Shadow Isles": "si",
-   Shurima: "s",
-   Targon: "t",
+   Bilgewater: 'b',
+   Demacia: 'd',
+   Freljord: 'f',
+   Ionia: 'i',
+   Noxus: 'n',
+   'Piltover & Zaun': 'p',
+   'Shadow Isles': 'si',
+   Shurima: 's',
+   Targon: 't',
 };
 
 export const SHORT_CODE_TO_REGION: Record<string, string> = Object.keys(
@@ -34,15 +37,15 @@ export const REGION_TO_DECKCODE_ID = {
 };
 
 export const DECKCODE_REGION_TO_SHORT_CODE: Record<string, string> = {
-   DE: "d",
-   FR: "f",
-   IO: "i",
-   NX: "n",
-   PZ: "p",
-   SI: "si",
-   BW: "b",
-   MT: "t",
-   SH: "s",
+   DE: 'd',
+   FR: 'f',
+   IO: 'i',
+   NX: 'n',
+   PZ: 'p',
+   SI: 'si',
+   BW: 'b',
+   MT: 't',
+   SH: 's',
 };
 
 export const SCREEN_BREAKPOINTS = {
@@ -54,14 +57,23 @@ export const SCREEN_BREAKPOINTS = {
 };
 
 export const MANA_VALUES: Record<string, number> = {
-   "1": 1,
-   "2": 2,
-   "3": 3,
-   "4": 4,
-   "5": 5,
-   "6": 6,
-   "7+": 7,
+   '1': 1,
+   '2': 2,
+   '3': 3,
+   '4': 4,
+   '5': 5,
+   '6': 6,
+   '7+': 7,
 };
 
 export const MAXIMUM_SCALE = 3;
 export const SCALE_STEP = 0.25;
+
+export const NO_CHAMP: DisplayCard = {
+   isChamp: true,
+   name: 'No Champ',
+   art: cardBack,
+   code: '',
+   cost: 0,
+   subtype: '',
+};

@@ -7,11 +7,7 @@ import {
    SHORT_CODE_TO_REGION,
 } from 'Constants/constants';
 import { Card, DisplayCard } from 'Constants/types';
-import LoRDeckCode from '../lib/LoRDeckCode/LoRDeckCode';
-import {
-   CardCodeAndCount,
-   Deck as DecodedDeck,
-} from '../lib/LoRDeckCode/types';
+import { getDeckFromCode, CardCodeAndCount, Deck } from 'lor-deckcodes-ts';
 
 const cardsByRegion = metadata as Record<string, DisplayCard[]>;
 
@@ -22,7 +18,7 @@ export function getCardsForRegion(region: string) {
 export function filterCardsForRegionByList(
    region: string,
    list: string[],
-   decodedCards?: DecodedDeck
+   decodedCards?: Deck
 ): DisplayCard[] {
    let cards = getCardsForRegion(region).filter(
       (card: DisplayCard) =>
@@ -108,12 +104,18 @@ export function isOnMobile(): boolean {
    })(navigator.userAgent || navigator.vendor || (window as any).opera);
 }
 
-export function decodeDeck(code: string): DecodedDeck {
-   const decodedDeck = LoRDeckCode.getDeckFromCode(code);
+export function decodeDeck(code: string): Deck {
+   let decodedDeck: Deck = [];
+
+   try {
+      decodedDeck = getDeckFromCode(code);
+      console.log(decodedDeck);
+   } catch (e) {
+      console.warn('invalid deck code');
+   }
 
    if (decodedDeck.length === 0) {
-      console.warn('invalid deck code');
-      return [];
+      console.info('Deck was empty. Was this expected?');
    }
 
    return decodedDeck;
@@ -124,7 +126,7 @@ export function decodeDeckCodeToCardList({
    decoded,
 }: {
    code?: string;
-   decoded?: DecodedDeck;
+   decoded?: Deck;
 }) {
    const decodedDeck = code ? decodeDeck(code) : decoded;
 
@@ -134,11 +136,16 @@ export function decodeDeckCodeToCardList({
       (acc: Record<string, string[]>, curr: CardCodeAndCount) => {
          const region =
             SHORT_CODE_TO_REGION[getRegionFromCardCode(curr.cardCode)];
+
          const newVal = { ...acc };
+
          if (!Array.isArray(newVal[region])) newVal[region] = [];
+
          newVal[region].push(curr.cardCode);
+
          return newVal;
       },
+
       {}
    );
 
@@ -154,9 +161,7 @@ function convertDecodedCardToDisplayCard(card: CardCodeAndCount): DisplayCard {
    return { ...found, count: card.count } as DisplayCard;
 }
 
-export function convertDecodedCardsToDisplayCards(
-   decodedCards: DecodedDeck = []
-) {
+export function convertDecodedCardsToDisplayCards(decodedCards: Deck = []) {
    const uniq = new Set<DisplayCard>();
    decodedCards
       .map(convertDecodedCardToDisplayCard)

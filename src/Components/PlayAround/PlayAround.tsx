@@ -9,7 +9,7 @@ import {
    getCardsByCriteria,
    getRegionFromCardCode,
 } from 'Helpers/helpers';
-import { Deck } from 'lib/LoRDeckCode/types';
+import { Deck } from 'lor-deckcodes-ts';
 import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { useLocation } from 'react-router';
 import Filters from './Filters/Filters';

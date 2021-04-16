@@ -1,12 +1,13 @@
-import Region from "Components/Region/Region";
+import Region from 'Components/Region/Region';
 import {
    DECKCODE_REGION_TO_SHORT_CODE,
+   NO_CHAMP,
    SHORT_CODE_TO_REGION,
-} from "Constants/constants";
-import { MetaDeck } from "Constants/types";
-import { getChampsFromDeck } from "Helpers/helpers";
-import { useMemo } from "react";
-import { useHistory } from "react-router-dom";
+} from 'Constants/constants';
+import { MetaDeck } from 'Constants/types';
+import { getChampsFromDeck } from 'Helpers/helpers';
+import { useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
    deck: MetaDeck;
@@ -20,7 +21,13 @@ export default function MetaDeckElement({ deck }: Props) {
    }
 
    const champs = useMemo(() => {
-      return getChampsFromDeck(deck.cardsCode);
+      const champsFromDeck = getChampsFromDeck(deck.cardsCode);
+
+      if (champsFromDeck.length === 0) {
+         champsFromDeck.push(NO_CHAMP);
+      }
+
+      return champsFromDeck;
    }, [deck.cardsCode]);
 
    const champArtwork = useMemo(() => {
@@ -52,13 +59,13 @@ export default function MetaDeckElement({ deck }: Props) {
       >
          <div
             className="flex flex-row justify-center items-center"
-            style={{ flexBasis: "66%" }}
+            style={{ flexBasis: '66%' }}
          >
             {champArtwork}
          </div>
          <div className="px-6 pt-4">
             <div className="font-bold text-xl mb-2 text-center text-gray-100">
-               {champs.map((champ) => champ.name).join(" ")}
+               {champs.map((champ) => champ.name).join(' / ')}
             </div>
             <p className="text-base text-left text-gray-300">
                {`Win Rate: ${(
