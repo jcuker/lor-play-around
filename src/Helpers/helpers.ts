@@ -109,7 +109,6 @@ export function decodeDeck(code: string): Deck {
 
    try {
       decodedDeck = getDeckFromCode(code);
-      console.log(decodedDeck);
    } catch (e) {
       console.warn('invalid deck code');
    }
