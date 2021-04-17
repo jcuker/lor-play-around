@@ -1,5 +1,5 @@
-import { MAXIMUM_SCALE, SCALE_STEP } from "Constants/constants";
-import { isOnMobile } from "Helpers/helpers";
+import { MAXIMUM_SCALE, SCALE_STEP } from 'Constants/constants';
+import { isOnMobile } from 'Helpers/helpers';
 
 export interface PlayAroundState {
    userScale: number;
@@ -11,14 +11,14 @@ export interface PlayAroundState {
 }
 
 export type PlayAroundType =
-   | "IncreaseUserScale"
-   | "DecreaseUserScale"
-   | "SetUserScale"
-   | "SetManaFilter"
-   | "SetInCombat"
-   | "SetCardList"
-   | "ToggleRegions"
-   | "ToggleShowFullDeck";
+   | 'IncreaseUserScale'
+   | 'DecreaseUserScale'
+   | 'SetUserScale'
+   | 'SetManaFilter'
+   | 'SetInCombat'
+   | 'SetCardList'
+   | 'ToggleRegions'
+   | 'ToggleShowFullDeck';
 
 export interface PlayAroundAction {
    type: PlayAroundType;
@@ -26,7 +26,7 @@ export interface PlayAroundAction {
 }
 
 export const INITIAL_STATE: PlayAroundState = {
-   userScale: 1,
+   userScale: isOnMobile() ? 0.5 : 1,
    inCombat: false,
    manaFilter: 7,
    cardList: {},
@@ -39,13 +39,13 @@ export function reducer(
    action: PlayAroundAction
 ): PlayAroundState {
    switch (action.type) {
-      case "SetCardList":
+      case 'SetCardList':
          return { ...state, cardList: { ...action.payload } };
-      case "SetInCombat":
+      case 'SetInCombat':
          return { ...state, inCombat: action.payload };
-      case "SetManaFilter":
+      case 'SetManaFilter':
          return { ...state, manaFilter: action.payload };
-      case "IncreaseUserScale":
+      case 'IncreaseUserScale':
          return {
             ...state,
             userScale:
@@ -53,16 +53,16 @@ export function reducer(
                   ? MAXIMUM_SCALE
                   : state.userScale + SCALE_STEP,
          };
-      case "DecreaseUserScale":
+      case 'DecreaseUserScale':
          return {
             ...state,
             userScale: state.userScale <= 0 ? 0 : state.userScale - SCALE_STEP,
          };
-      case "SetUserScale":
+      case 'SetUserScale':
          return { ...state, userScale: action.payload };
-      case "ToggleRegions":
+      case 'ToggleRegions':
          return { ...state, showRegions: !state.showRegions };
-      case "ToggleShowFullDeck":
+      case 'ToggleShowFullDeck':
          return { ...state, showFullDeck: !state.showFullDeck };
       default:
          return state;

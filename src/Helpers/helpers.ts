@@ -44,36 +44,53 @@ export function getKeywordUrl(keyword: string) {
 }
 
 export function getCardScaleFromScreenSize(): number {
-   const screenWidth = window.innerWidth;
-
-   if (screenWidth <= SCREEN_BREAKPOINTS.xs) {
-      return 7.5;
-   } else if (screenWidth <= SCREEN_BREAKPOINTS.sm) {
-      return 6.75;
-   } else if (screenWidth <= SCREEN_BREAKPOINTS.md) {
-      return 6;
-   } else if (screenWidth <= SCREEN_BREAKPOINTS.lg) {
-      return 5.25;
-   } else if (screenWidth <= SCREEN_BREAKPOINTS.xl) {
-      return 4.75;
-   } else {
-      return 0;
-   }
+   const values: Record<ScreenBreakpointKeys, number> = {
+      xl: 4.75,
+      lg: 5.25,
+      md: 6,
+      sm: 6.75,
+      xs: 7.5,
+   };
+   return getScaleHelper(values);
 }
 
 export function getRegionScaleFromScreenSize(): number {
-   const screenWidth = window.innerWidth;
+   const values: Record<ScreenBreakpointKeys, number> = {
+      xl: 1,
+      lg: 1.5,
+      md: 2,
+      sm: 2.5,
+      xs: 3,
+   };
+   return getScaleHelper(values);
+}
 
+export function getKeywordScaleFromScreenSize(): number {
+   const values: Record<ScreenBreakpointKeys, number> = {
+      xl: 1,
+      lg: 1.25,
+      md: 1.5,
+      sm: 1.75,
+      xs: 2,
+   };
+   return getScaleHelper(values);
+}
+
+type ScreenBreakpointKeys = keyof typeof SCREEN_BREAKPOINTS;
+function getScaleHelper(
+   values: Record<ScreenBreakpointKeys, number>,
+   screenWidth = window.innerWidth
+): number {
    if (screenWidth <= SCREEN_BREAKPOINTS.xs) {
-      return 3;
+      return values['xs'];
    } else if (screenWidth <= SCREEN_BREAKPOINTS.sm) {
-      return 2.5;
+      return values['sm'];
    } else if (screenWidth <= SCREEN_BREAKPOINTS.md) {
-      return 2;
+      return values['md'];
    } else if (screenWidth <= SCREEN_BREAKPOINTS.lg) {
-      return 1.5;
+      return values['lg'];
    } else if (screenWidth <= SCREEN_BREAKPOINTS.xl) {
-      return 1;
+      return values['xl'];
    } else {
       return 0;
    }

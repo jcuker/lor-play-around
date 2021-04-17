@@ -33,6 +33,7 @@ export default function MetaDeckElement({ deck }: Props) {
    const champArtwork = useMemo(() => {
       return champs.map((champ) => (
          <img
+            key={champ.name}
             style={{
                flex: 1,
                maxWidth: `${Math.min(50, 100 / champs.length)}%`,
@@ -48,7 +49,12 @@ export default function MetaDeckElement({ deck }: Props) {
          .map((region) => DECKCODE_REGION_TO_SHORT_CODE[region])
          .map((region) => SHORT_CODE_TO_REGION[region])
          .map((region) => (
-            <Region name={region} showName={false} customScale={3} />
+            <Region
+               key={region}
+               name={region}
+               showName={false}
+               customScale={3}
+            />
          ));
    }, [deck.regions]);
 

@@ -24,6 +24,7 @@ function CardCount({ count }: { count: number }) {
       for (let i = 0; i < 3; i++) {
          jsx.push(
             <div
+               key={`copy-${i}`}
                style={{
                   borderRadius: '50%',
                   backgroundImage: `radial-gradient(circle, ${
@@ -38,7 +39,11 @@ function CardCount({ count }: { count: number }) {
 
       // To support non-standard decks with more than 3 copies of a card
       if (count > 3) {
-         jsx.push(<span className="text-gray-100 text-sm">+{count - 3}</span>);
+         jsx.push(
+            <span key={`copy-4`} className="text-gray-100 text-sm">
+               +{count - 3}
+            </span>
+         );
       }
 
       return jsx;

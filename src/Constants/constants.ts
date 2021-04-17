@@ -48,13 +48,13 @@ export const DECKCODE_REGION_TO_SHORT_CODE: Record<string, string> = {
    SH: 's',
 };
 
-export const SCREEN_BREAKPOINTS = {
+export const SCREEN_BREAKPOINTS = Object.freeze({
    xs: 0,
    sm: 600,
    md: 960,
    lg: 1280,
    xl: 1920,
-};
+});
 
 export const MANA_VALUES: Record<string, number> = {
    '1': 1,

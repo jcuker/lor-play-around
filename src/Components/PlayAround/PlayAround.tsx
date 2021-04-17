@@ -23,6 +23,7 @@ export interface URLParams {
 
 export default function PlayAround() {
    const location = useLocation();
+
    // Full region name
    const [regions, setRegions] = useState<string[]>([]);
    const [decodedCards, setDecodedCards] = useState<Deck>();
@@ -69,6 +70,7 @@ export default function PlayAround() {
                   );
                setRegions(regions);
                setDecodedCards(decoded);
+               dispatch({ type: 'ToggleShowFullDeck' });
             }
 
             dispatch({ type: 'SetCardList', payload: cardList });
@@ -194,7 +196,9 @@ export default function PlayAround() {
                .map((keyword) => {
                   const cardsForKeyword = cards[
                      keyword
-                  ].sort((a: any, b: any) => (a.cost > b.cost ? 1 : -1));
+                  ].sort((a: DisplayCard, b: DisplayCard) =>
+                     a.cost > b.cost ? 1 : -1
+                  );
                   return (
                      <KeywordSection
                         userScale={state.userScale}

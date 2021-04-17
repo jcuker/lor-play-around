@@ -8,6 +8,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { useLocation } from 'react-router';
 import ManaGem from './ManaGem';
+import { isOnMobile } from 'Helpers/helpers';
 interface Props {
    dispatch: React.Dispatch<PlayAroundAction>;
    manaFilter: number;
@@ -120,11 +121,13 @@ export default function FilterContent({
          {location.search.includes('code') && (
             <FilterSection content={fullDeckContent} heading="" />
          )}
-         <FilterSection
-            content={<></>}
-            heading="Use 1-7 to quickly adjust the mana filter. You can also use '-' or
+         {!isOnMobile() && (
+            <FilterSection
+               content={<></>}
+               heading="Use 1-7 to quickly adjust the mana filter. You can also use '-' or
             '+/=' to adjust the zoom level."
-         />
+            />
+         )}
       </div>
    );
 }

@@ -19,7 +19,9 @@ export default function MetaDecks() {
    }, []);
 
    const deckElements = useMemo(() => {
-      return decks.map((deck) => <MetaDeckElement deck={deck} />);
+      return decks.map((deck) => (
+         <MetaDeckElement key={JSON.stringify(deck)} deck={deck} />
+      ));
    }, [decks]);
 
    return (
