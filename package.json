@@ -28,7 +28,8 @@
     "start": "BROWSER='firefox' craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-metadata": "node metadata-transformer.js"
   },
   "eslintConfig": {
     "extends": [

@@ -5,6 +5,7 @@ import MetaDeckElement from './MetaDeckElement';
 
 export default function MetaDecks() {
    const [decks, setDecks] = useState<MetaDeck[]>([]);
+
    // Number of decks to request, not always what you get back though
    const numDecks = 20;
 
