@@ -3,10 +3,11 @@ export interface Card {
    name: string;
    art: string; // url to the art
    code: string;
-   speed?: string;
    cost: number;
-   isChamp?: boolean;
    subtype: string;
+   collectible?: boolean;
+   isChamp?: boolean;
+   speed?: string;
 }
 
 // This is used for display purposes to show the number in the top left of a card instead of multiple copies

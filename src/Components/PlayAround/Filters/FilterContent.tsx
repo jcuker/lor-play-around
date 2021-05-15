@@ -14,6 +14,7 @@ interface Props {
    manaFilter: number;
    scale: number;
    showFullDeck: boolean;
+   showNonCollectibleCards: boolean;
 }
 
 export default function FilterContent({
@@ -21,6 +22,7 @@ export default function FilterContent({
    manaFilter,
    scale,
    showFullDeck,
+   showNonCollectibleCards,
 }: Props) {
    const location = useLocation();
 
@@ -93,6 +95,26 @@ export default function FilterContent({
    //    );
    // }, []);
 
+   const collectableFilterContent = useMemo(() => {
+      return (
+         <>
+            <label className="inline-flex items-center mt-3">
+               <input
+                  type="checkbox"
+                  className="form-checkbox h-5 w-5 text-teal-600"
+                  checked={showNonCollectibleCards}
+                  onChange={() =>
+                     dispatch({ type: 'ToggleNonCollectibleCards' })
+                  }
+               />
+               <span className="ml-2 text-gray-100 text-sm">
+                  View Non-Collectible Cards (not just what to play around)
+               </span>
+            </label>
+         </>
+      );
+   }, [dispatch, showNonCollectibleCards]);
+
    const fullDeckContent = useMemo(() => {
       return (
          <>
@@ -121,6 +143,7 @@ export default function FilterContent({
          {location.search.includes('code') && (
             <FilterSection content={fullDeckContent} heading="" />
          )}
+         <FilterSection content={collectableFilterContent} heading="" />
          {!isOnMobile() && (
             <FilterSection
                content={<></>}

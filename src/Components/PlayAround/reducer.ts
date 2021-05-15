@@ -8,6 +8,7 @@ export interface PlayAroundState {
    cardList: Record<string, string[]>;
    showRegions: boolean;
    showFullDeck: boolean;
+   showNonCollectibleCards: boolean;
 }
 
 export type PlayAroundType =
@@ -18,7 +19,8 @@ export type PlayAroundType =
    | 'SetInCombat'
    | 'SetCardList'
    | 'ToggleRegions'
-   | 'ToggleShowFullDeck';
+   | 'ToggleShowFullDeck'
+   | 'ToggleNonCollectibleCards';
 
 export interface PlayAroundAction {
    type: PlayAroundType;
@@ -32,6 +34,7 @@ export const INITIAL_STATE: PlayAroundState = {
    cardList: {},
    showRegions: !isOnMobile(),
    showFullDeck: false,
+   showNonCollectibleCards: true,
 };
 
 export function reducer(
@@ -64,6 +67,11 @@ export function reducer(
          return { ...state, showRegions: !state.showRegions };
       case 'ToggleShowFullDeck':
          return { ...state, showFullDeck: !state.showFullDeck };
+      case 'ToggleNonCollectibleCards':
+         return {
+            ...state,
+            showNonCollectibleCards: !state.showNonCollectibleCards,
+         };
       default:
          return state;
    }

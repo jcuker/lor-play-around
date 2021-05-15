@@ -29,7 +29,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "generate-metadata": "node metadata-transformer.js"
+    "generate-metadata": "node metadata-transformer.js",
+    "download-and-generate-metadata": "node metadata-transformer.js -d",
+    "get-lists": "node get-lists.js --default"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +53,8 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
+    "adm-zip": "^0.5.5",
+    "axios": "^0.21.1",
     "gh-pages": "^3.1.0"
   }
 }

@@ -68,6 +68,7 @@ export default function PlayAround() {
                   .filter(
                      (value, index, self) => self.indexOf(value) === index
                   );
+
                setRegions(regions);
                setDecodedCards(decoded);
                dispatch({ type: 'ToggleShowFullDeck' });
@@ -99,9 +100,16 @@ export default function PlayAround() {
          const celestialCards = getCardsByCriteria({ subtype: 'Celestial' });
          matchingCards = matchingCards.concat(celestialCards);
       }
+
       if (state.manaFilter !== 7) {
          matchingCards = matchingCards.filter((card: Card) => {
             return card.cost <= state.manaFilter;
+         });
+      }
+
+      if (!state.showNonCollectibleCards) {
+         matchingCards = matchingCards.filter((card: Card) => {
+            return card.collectible;
          });
       }
 
@@ -118,10 +126,11 @@ export default function PlayAround() {
       return cardsSplitBySpeed;
    }, [
       state.cardList,
-      state.manaFilter,
       state.showFullDeck,
-      regions,
+      state.manaFilter,
+      state.showNonCollectibleCards,
       decodedCards,
+      regions,
    ]);
 
    useEffect(() => {
@@ -163,6 +172,8 @@ export default function PlayAround() {
             dispatch({ type: 'DecreaseUserScale' });
          } else if (decodedCards && ev.code === 'KeyF') {
             dispatch({ type: 'ToggleShowFullDeck' });
+         } else if (ev.code === 'KeyE') {
+            dispatch({ type: 'ToggleNonCollectibleCards' });
          }
       }
 
@@ -180,6 +191,7 @@ export default function PlayAround() {
             manaFilter={state.manaFilter}
             scale={state.userScale}
             showFullDeck={state.showFullDeck}
+            showNonCollectibleCards={state.showNonCollectibleCards}
          />
          <div
             className={`flex flex-row justify-center flex-wrap gap-3 mb-4 p-16 ${
@@ -194,10 +206,9 @@ export default function PlayAround() {
             {Object.keys(cards)
                .sort()
                .map((keyword) => {
-                  const cardsForKeyword = cards[
-                     keyword
-                  ].sort((a: DisplayCard, b: DisplayCard) =>
-                     a.cost > b.cost ? 1 : -1
+                  const cardsForKeyword = cards[keyword].sort(
+                     (a: DisplayCard, b: DisplayCard) =>
+                        a.cost > b.cost ? 1 : -1
                   );
                   return (
                      <KeywordSection
