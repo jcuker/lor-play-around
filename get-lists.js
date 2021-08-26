@@ -2,8 +2,13 @@ const fs = require('fs');
 const path = require('path');
 
 const outputLocation = path.join(__dirname, 'src/Constants/lists.json');
+const generatedMetadataLocation = path.join(__dirname, 'src/Constants/metadata.json');
 
-function generateDefaultList() {
+function curated() {
+   const defaultBandleCity = [
+      'Otterpus'
+   ];
+
    const defaultBilgewater = [
       'Bone Skewer',
       'Boomship',
@@ -263,6 +268,7 @@ function generateDefaultList() {
 
    return {
       default: {
+         'Bandle City': defaultBandleCity,
          Bilgewater: defaultBilgewater,
          Demacia: defaultDemacia,
          Freljord: defaultFreljord,
@@ -274,6 +280,27 @@ function generateDefaultList() {
          Targon: defaultTargon,
       },
    };
+}
+
+function generateDefaultList() {
+   const metadata = JSON.parse(fs.readFileSync(generatedMetadataLocation));
+
+   const regions = Object.keys(metadata);
+
+   const list = {};
+
+   for (const region of regions) {
+      const regionList = [];
+      const regionCards = metadata[region];
+
+      for (const card of regionCards) {
+         if (card.speed) regionList.push(card.name)
+      }
+
+      list[region] = Array.from(new Set(regionList));
+   }
+
+   return {default: list};
 }
 
 function getRemoteList(listId) {

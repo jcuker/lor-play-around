@@ -4,6 +4,7 @@ import cardBack from '@images/cardBack.png';
 export const APP_NAME = 'LoR Play Around Helper';
 
 export const REGION_TO_SHORT_CODE: Record<string, string> = {
+   'Bandle City': 'bc',
    Bilgewater: 'b',
    Demacia: 'd',
    Freljord: 'f',
@@ -34,6 +35,7 @@ export const REGION_TO_DECKCODE_ID = {
    BW: 6,
    MT: 9,
    SH: 7,
+   BC: 10
 };
 
 export const DECKCODE_REGION_TO_SHORT_CODE: Record<string, string> = {
@@ -46,6 +48,7 @@ export const DECKCODE_REGION_TO_SHORT_CODE: Record<string, string> = {
    BW: 'b',
    MT: 't',
    SH: 's',
+   BC: 'bc'
 };
 
 export const SCREEN_BREAKPOINTS = Object.freeze({

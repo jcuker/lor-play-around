@@ -1,3 +1,4 @@
+import bandleCity from '@images/regions/BC.svg';
 import bilgewater from '@images/regions/bilgewater.png';
 import demacia from '@images/regions/demacia.png';
 import freljord from '@images/regions/freljord.png';
@@ -53,6 +54,8 @@ export default function Region({
 
    const icon = useMemo(() => {
       switch (name) {
+         case 'Bandle City':
+            return bandleCity;
          case 'Bilgewater':
             return bilgewater;
          case 'Demacia':

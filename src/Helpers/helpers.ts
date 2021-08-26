@@ -104,7 +104,14 @@ export function isSmallScreen(): boolean {
 export function getRegionFromCardCode(code: string, shortCode: boolean = true) {
    const regionStr = code.substring(2, 4);
    const asShortCode = DECKCODE_REGION_TO_SHORT_CODE[regionStr];
-   return shortCode ? asShortCode : SHORT_CODE_TO_REGION[asShortCode];
+
+   const s= shortCode ? asShortCode : SHORT_CODE_TO_REGION[asShortCode];
+
+   if (!s) {
+      console.log('fdas')
+   }
+
+   return s;
 }
 
 export function isOnMobile(): boolean {
