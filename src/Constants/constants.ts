@@ -78,5 +78,5 @@ export const NO_CHAMP: DisplayCard = {
    art: cardBack,
    code: '',
    cost: 0,
-   subtype: '',
+   subtypes: [],
 };

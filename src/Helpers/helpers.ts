@@ -232,7 +232,7 @@ export function getCardsByCriteria({
       return allCards.filter((card) => card.cost === cost);
    } else if (subtype) {
       return allCards.filter(
-         (card) => card.subtype.toLowerCase() === subtype.toLowerCase()
+         (card) => card.subtypes.includes(subtype.toLowerCase())
       );
    }
 

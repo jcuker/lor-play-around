@@ -4,7 +4,7 @@ export interface Card {
    art: string; // url to the art
    code: string;
    cost: number;
-   subtype: string;
+   subtypes: string[];
    collectible?: boolean;
    isChamp?: boolean;
    speed?: string;
