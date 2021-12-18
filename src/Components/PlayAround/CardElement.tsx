@@ -132,6 +132,7 @@ export default function CardElement({ card, userScale }: Props) {
             ref={imgRef}
             src={src}
             alt={card.name}
+            id={card.name}
             height={1024 / (scale - userScale)}
             width={728 / (scale - userScale)}
             style={{
