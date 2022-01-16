@@ -6,7 +6,7 @@ import {
    useRef,
    useState,
 } from 'react';
-import cardBack from '@images/cardBack.png';
+import cardBack from '../../Images/cardback.png';
 import { DisplayCard } from 'Constants/types';
 
 interface Props {

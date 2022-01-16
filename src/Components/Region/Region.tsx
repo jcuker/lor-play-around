@@ -1,13 +1,13 @@
-import bandleCity from '@images/regions/BC.svg';
-import bilgewater from '@images/regions/bilgewater.png';
-import demacia from '@images/regions/demacia.png';
-import freljord from '@images/regions/freljord.png';
-import ionia from '@images/regions/ionia.png';
-import noxus from '@images/regions/noxus.png';
-import piltoverzaun from '@images/regions/piltoverzaun.png';
-import shadowisles from '@images/regions/shadowisles.png';
-import shurima from '@images/regions/shurima.png';
-import targon from '@images/regions/targon.png';
+import bandleCity from '../../Images/regions/BC.svg';
+import bilgewater from '../../Images/regions/bilgewater.png';
+import demacia from '../../Images/regions/demacia.png';
+import freljord from '../../Images/regions/freljord.png';
+import ionia from '../../Images/regions/ionia.png';
+import noxus from '../../Images/regions/noxus.png';
+import piltoverzaun from '../../Images/regions/piltoverzaun.png';
+import shadowisles from '../../Images/regions/shadowisles.png';
+import shurima from '../../Images/regions/shurima.png';
+import targon from '../../Images/regions/targon.png';
 import { getRegionScaleFromScreenSize } from 'Helpers/helpers';
 import {
    useCallback,
@@ -16,7 +16,7 @@ import {
    useMemo,
    useState,
 } from 'react';
-import checkImg from '@images/check.png';
+import checkImg from '../../Images/check.png';
 import './region.css';
 
 export interface RegionProps {

@@ -1,5 +1,5 @@
 import metadata from '../Constants/metadata.json';
-import card from '@images/card.svg';
+import card from '../Images/card.svg';
 import {
    DECKCODE_REGION_TO_SHORT_CODE,
    REGIONS,

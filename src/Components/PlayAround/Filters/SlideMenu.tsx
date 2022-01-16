@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import hMenu from "@images/hMenu.svg";
+import hMenu from "../../../Images/hMenu.svg";
 import { isOnMobile, isSmallScreen } from "Helpers/helpers";
 
 interface Props {

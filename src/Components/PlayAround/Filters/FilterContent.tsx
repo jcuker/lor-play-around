@@ -1,6 +1,6 @@
 import { PlayAroundAction } from '../reducer';
-import zoomOut from '@images/zoomOut.svg';
-import zoomIn from '@images/zoomIn.svg';
+import zoomOut from '../../../Images/zoomOut.svg';
+import zoomIn from '../../../Images/zoomIn.svg';
 import { MANA_VALUES, MAXIMUM_SCALE, SCALE_STEP } from 'Constants/constants';
 import FilterSection from './FilterSection';
 import { useCallback, useMemo } from 'react';
