@@ -1,5 +1,5 @@
 import { DisplayCard } from './types';
-import cardBack from '../Images/cardBack.png';
+import cardBack from '../Images/defaultCardBack.png';
 
 export const APP_NAME = 'LoR Play Around Helper';
 
