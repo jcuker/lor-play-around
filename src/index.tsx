@@ -8,7 +8,7 @@ import "./index.css";
 
 ReactDOM.render(
    <React.StrictMode>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
          <Switch>
             <Route path="/meta">
                <MetaDecks />
