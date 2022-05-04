@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/lor-play-around/static/css/main.63cb33ca.chunk.css",
-    "main.js": "/lor-play-around/static/js/main.062fbd14.chunk.js",
-    "main.js.map": "/lor-play-around/static/js/main.062fbd14.chunk.js.map",
+    "main.js": "/lor-play-around/static/js/main.22e364af.chunk.js",
+    "main.js.map": "/lor-play-around/static/js/main.22e364af.chunk.js.map",
     "runtime-main.js": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js",
     "runtime-main.js.map": "/lor-play-around/static/js/runtime-main.dfb4b4ef.js.map",
     "static/css/2.437dbca3.chunk.css": "/lor-play-around/static/css/2.437dbca3.chunk.css",
@@ -14,7 +14,7 @@
     "static/js/2.19626223.chunk.js.LICENSE.txt": "/lor-play-around/static/js/2.19626223.chunk.js.LICENSE.txt",
     "static/media/BC.622ebd1c.svg": "/lor-play-around/static/media/BC.622ebd1c.svg",
     "static/media/card.cf949105.svg": "/lor-play-around/static/media/card.cf949105.svg",
-    "static/media/cardBack.4d987ef5.png": "/lor-play-around/static/media/cardBack.4d987ef5.png",
+    "static/media/cardback.4d987ef5.png": "/lor-play-around/static/media/cardback.4d987ef5.png",
     "static/media/hMenu.7854e359.svg": "/lor-play-around/static/media/hMenu.7854e359.svg",
     "static/media/shurima.1b8ac624.png": "/lor-play-around/static/media/shurima.1b8ac624.png",
     "static/media/targon.c5241d9e.png": "/lor-play-around/static/media/targon.c5241d9e.png",
@@ -26,6 +26,6 @@
     "static/css/2.437dbca3.chunk.css",
     "static/js/2.19626223.chunk.js",
     "static/css/main.63cb33ca.chunk.css",
-    "static/js/main.062fbd14.chunk.js"
+    "static/js/main.22e364af.chunk.js"
   ]
 }
