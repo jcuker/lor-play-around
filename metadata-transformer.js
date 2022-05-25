@@ -5,7 +5,7 @@ const AdmZip = require("adm-zip");
 
 const inputLocationPrefix = path.join(__dirname, "/data/");
 const outputLocation = path.join(__dirname, "src/Constants/metadata.json");
-const numberOfSets = 5;
+const numberOfSets = 6;
 
 async function downloadSets() {
   const urlTemplate = (setNumber) =>
